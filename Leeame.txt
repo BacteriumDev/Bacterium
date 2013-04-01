@@ -1,0 +1,6 @@
+Creacion del repositorio en GitHub del proyecto de ingenieria de software.
+Integrantes:
+	Juan Carlos Villalta Alvarado
+	Roberto Castro Valenzuela
+	
+Universidad de Costa Rica.
