@@ -10,3 +10,4 @@ Pruebas hechas desde el bash:
 	admlab@106-19: cd localbacteria
 	admlab@106-19: git stash list
 	admlab@106-19: git fetch
+	admlab@106-19: git log -p HEAD..FETCH_HEAD (bugged)
