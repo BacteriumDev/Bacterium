@@ -4,3 +4,8 @@ Integrantes:
 	Roberto Castro Valenzuela
 	
 Universidad de Costa Rica.2013.
+
+Pruebas hechas desde el bash:
+	admlab@106-19: git clone https://github.com/BacteriumDev/Bacterium.git localbacteria
+	admlab@106-19: cd localbacteria
+	admlab@106-19: git stash list
