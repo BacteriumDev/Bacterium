@@ -1,0 +1,112 @@
+
+body {
+background-color:#008B8B;
+font-family: "Arial Narrow";
+color:#333;
+margin:0;
+padding:0;
+}
+
+#wrapper {
+width:1059px;
+background-color:#FFFFFF;
+margin:0 auto;
+border-left:1px solid #ccc;
+border-right:1px solid #ccc;
+}
+
+#loginbar{
+width:1059px;
+height:170px;
+background-image:url('../images/bacteriumbanner.png');
+margin-bottom:10px;
+}
+
+#footerbar{
+width:1059px;
+height:100px;
+background-image:url('../images/footer.png');
+}
+
+#logincontent{
+width:600px;
+height:600px;
+margin-left:auto;
+margin-right:auto;
+}
+
+#slider{
+width:600px;
+height:352px;
+margin-left:auto;
+margin-right:auto;
+margin-top:10px;
+margin-bottom:0px;
+}
+
+#header {
+width:1000px;
+height:150px;
+margin:0 auto;
+margin-bottom:50px;
+border-bottom:1px solid #ccc;
+border-top:1px solid #ccc;
+}
+
+#header h2 {
+padding:10px;
+}
+
+#nav {
+width:960px;
+height:40px;
+border-bottom:1px solid #ccc;
+}
+
+#nav a {
+display:inline;
+padding:10px;
+text-decoration:none;
+background-color:#BDEDFF;
+}
+
+#nav a:hover {
+background-color:#FFFFFF;
+height:80px;
+}
+
+#content {
+width:1000px;
+float:left;
+padding:10px;
+}
+
+#sidebar {
+width:200px;
+float:right;
+margin-bottom:25px;
+}
+
+#sidebar a {
+text-decoration:none;
+}
+
+#sidebar li {
+list-style:none;
+}
+
+#footer {
+clear:both;
+width:1059px;
+height:80px;
+border-top:1px solid #ccc;
+}
+
+#footer p {
+padding:10px;
+}
+.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 800px;
+}
