@@ -12,7 +12,7 @@ session_destroy();
 
 if(!empty($old_user))
 {
-	$respuesta = "Sesion finalizada correctamente";
+	$respuesta = "Sesion finalizada correctamente, regrese pronto!";
 }else
 {
 	$respuesta = "Error al finalizar sesion, ha accesado a esta seccion de manera no autorizada";
@@ -37,7 +37,9 @@ if(!empty($old_user))
 				<a href="index.php" class="button">Regresar</a>
 			</div>
 			
-			<p><?php echo $respuesta; ?>
+			<div id="footer">
+				<h3><?php echo $respuesta; ?></h3>
+			</div>
 			
 		</div>
 	</body>

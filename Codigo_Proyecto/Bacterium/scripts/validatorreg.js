@@ -5,12 +5,14 @@ function validateUsername(fld) {
     if (fld.value == "") {
         fld.style.background = 'Yellow'; 
         error = "No ingresó un nombre válido.\n";
-    } else if ((fld.value.length < 1) || (fld.value.length > 25)) {
+    } else if ((fld.value.length < 6) || (fld.value.length > 20)) {
         fld.style.background = 'Yellow'; 
-        error = "Digite un nombre de usuario mas corto.\n";
+        error = "Digite un nombre de usuario entre 6 y 20 caracteres.\n";
     } else if (!illegalChars.test(fld.value)) {
         fld.style.background = 'Yellow'; 
         error = "Nombre no válido, ingrese únicamente letras.\n";
+	}else if(fld.value.match(/^.*[^\s{1,}]\s.*/)) {
+		error = "No se admiten espacios en el nombre de usuario\n";
     } else {
         fld.style.background = 'White';
     } 
@@ -40,9 +42,25 @@ function validateEmpty(fld) {
     if (fld.value.length == 0) {
         fld.style.background = 'Yellow'; 
         error = "Datos requeridos.\n"
+		
+	}else if(fld.value.length < 5)
+	{
+		fld.style.background = 'Yellow';
+		error = "Password muy corto.\n";
     } else {
         fld.style.background = 'White';
     }
+    return error;   
+}
+
+function validatePasswords(fldp1, fldp2) {
+    var error = "";
+  
+    if (fldp1.value != fldp2.value)
+	{
+		fldp2.style.background = "Yellow";
+		error = "Passwords no coinciden\n";
+	}
     return error;   
 }
 
@@ -79,6 +97,7 @@ function validateFormOnSubmit(theForm) {
 	reason += validateEmail(theForm.bac_email);
 	reason += validateEmpty(theForm.bac_password);
 	reason += validateEmpty(theForm.bacn_password);
+	reason += validatePasswords(theForm.bac_password, theForm.bacn_password);
 	  
 	if (reason != "") {
 		alert("Algunos datos necesitan ser verificados:\n" + reason);

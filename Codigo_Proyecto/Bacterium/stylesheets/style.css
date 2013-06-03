@@ -7,6 +7,24 @@ margin:0;
 padding:0;
 }
 
+h2 {
+	color: #008B8B;
+	font: 28px/18px "Segoe UI";
+	position: relative;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+h3 {
+	color: #008B8B;
+	font: 20px/18px "Segoe UI";
+	position: relative;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
 #wrapper {
 width:1059px;
 background-color:#FFFFFF;
@@ -109,4 +127,25 @@ padding:10px;
     margin: 0 auto;
     text-align: left;
     width: 800px;
+}
+
+.bigbox{
+  width:33%;
+  float:left;
+  margin-bottom: 50px;
+}
+
+.box {
+  background: #F0FFFF;
+  width: 200px;
+  height:140px;
+  padding: 3px;
+  margin: 3px auto;
+  margin-top: 35px;
+}
+
+#box-wrapper {
+  width:100%;
+  background:white;
+  overflow:hidden;
 }
