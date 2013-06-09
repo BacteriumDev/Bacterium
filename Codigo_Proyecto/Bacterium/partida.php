@@ -67,8 +67,134 @@
 			document.getElementsByName("direccion"+x)[0].value = dir;
 			//alert("nueva dir: " + dir);
 			//alert("Turno de la IA");
+			contagio(pos.split("")[0],pos.split("")[1],dir);
 		}
 	}
+	
+	function contagio(i,j,pos)
+	{
+		num1 = parseInt(i);
+		num2 = parseInt(j);
+		if(pos == 1)
+		{
+			//alert("contagio arriba");
+			rec_contagio(num1-1,num2,pos);
+			contagio_indirecto_derecha(num1,num2+1);
+			contagio_indirecto_abajo(num1+1,num2);
+			contagio_indirecto_izquierda(num1,num2-1);
+		}else if(pos == 2)
+		{
+			//alert("contagio derecha");
+			rec_contagio(num1,num2+1,pos);
+			contagio_indirecto_arriba(num1-1,num2);
+			contagio_indirecto_abajo(num1+1,num2);
+			contagio_indirecto_izquierda(num1,num2-1);
+		}else if(pos == 3)
+		{
+			//alert("contagio abajo");
+			rec_contagio(num1+1,num2,pos);
+			contagio_indirecto_derecha(num1,num2+1);
+			contagio_indirecto_arriba(num1-1,num2);
+			contagio_indirecto_izquierda(num1,num2-1);
+		}else if(pos == 4)
+		{
+			//alert("contagio izquierda");
+			rec_contagio(num1,num2-1,pos);
+			contagio_indirecto_derecha(num1,num2+1);
+			contagio_indirecto_abajo(num1+1,num2);
+			contagio_indirecto_arriba(num1-1,num2);
+		}
+
+	}
+	
+	function contagio_indirecto_arriba(i,j)
+	{
+		if(i >= 0 && j >= 0 && i < 8 && j < 8)
+		{
+			var dir = document.getElementsByName("direccion"+i+j)[0].value;
+			if(dir == 3)
+			{
+				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".png";
+				document.getElementsByName("jugador"+i+j)[0].value = 1;
+				num1 = parseInt(i);
+				num2 = parseInt(j);
+				//contagio(num1,num2,dir);
+			}
+		}
+	}
+	
+	function contagio_indirecto_derecha(i,j)
+	{
+		//alert("contagio derecha" + i + j);
+		if(i >= 0 && j >= 0 && i < 8 && j < 8)
+		{
+			var dir = document.getElementsByName("direccion"+i+j)[0].value;
+			if(dir == 4)
+			{
+				
+				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".png";
+				document.getElementsByName("jugador"+i+j)[0].value = 1;
+				num1 = parseInt(i);
+				num2 = parseInt(j);
+				//contagio(num1,num2,dir);
+			}
+		}
+	}
+	
+	function contagio_indirecto_abajo(i,j)
+	{
+		if(i >= 0 && j >= 0 && i < 8 && j < 8)
+		{
+			var dir = document.getElementsByName("direccion"+i+j)[0].value;
+			if(dir == 1)
+			{
+				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".png";
+				document.getElementsByName("jugador"+i+j)[0].value = 1;
+				num1 = parseInt(i);
+				num2 = parseInt(j);
+				//contagio(num1,num2,dir);
+			}
+		}
+	}
+	
+	function contagio_indirecto_izquierda(i,j)
+	{
+		if(i >= 0 && j >= 0 && i < 8 && j < 8)
+		{
+			var dir = document.getElementsByName("direccion"+i+j)[0].value;
+			if(dir == 2)
+			{
+				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".png";
+				document.getElementsByName("jugador"+i+j)[0].value = 1;
+				num1 = parseInt(i);
+				num2 = parseInt(j);
+				//contagio(num1,num2,dir);
+			}
+		}
+	}
+		
+	function rec_contagio(i,j,poscontagiado)
+	{
+		//alert("entrando");
+		//verificar direccion de flecha
+		//
+	
+		//alert("entrando a contagio rec" + i + j + poscontagiado);
+		
+		//verificar posicion valida
+		if(i >= 0 && j >= 0 && i < 8 && j < 8)
+		{
+			var dir = document.getElementsByName("direccion"+i+j)[0].value;
+			//alert("entrando a contagio rec bac"+i+j);
+			document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".png";
+			document.getElementsByName("jugador"+i+j)[0].value = 1;
+			num1 = parseInt(i);
+			num2 = parseInt(j);
+			contagio(num1,num2,dir);			
+		}
+	}
+
+
 
 </script>
 
@@ -82,6 +208,7 @@
 				<a href="index.php" class="button">Regresar</a>
 			</div>
 			
+			<h2>Partida vs Inteligencia Artificial</h2>
 			
 		<table align="center" border="1" bordercolor="000000" style="background-color:FFFFFF" width="100">
 			<?php 
@@ -118,9 +245,10 @@
 			
 			
 			?>
+			
 		</table>
 
-
+		
 
 
 		
