@@ -2,8 +2,8 @@ body {
 	padding: 1px;
 }
 
-#login {
-	width: 440px;
+#tourny {
+	width: 540px;
 	position: relative;
 	margin: 50px auto;
 }
@@ -17,7 +17,7 @@ h2 {
 }
 
 .boxCont {
-	width: 400px;
+	width: 500px;
 	padding: 15px;
 	border: 5px solid #ccc;
 	
@@ -63,9 +63,9 @@ h2 {
 }
 
 /* Input */
-input[type="text"], input[type="password"], select{
+input[type="text"], input[type="password"], input[type="number"], input[type="date"],input[type="time"], select{
 	padding: 14px 10px;
-	width: 70%;
+	width: 55%;
 	border: 1px solid #ccc;
 	display: block;
 	float: right;

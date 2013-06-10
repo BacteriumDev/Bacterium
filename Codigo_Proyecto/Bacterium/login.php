@@ -1,13 +1,14 @@
 <?php
-extract($_REQUEST);
+//extract($_REQUEST);
 
 $resultado="";
 
 if( isset($signIn) ){
 	
 	// Conectar a la base de datos
-	$conexion_log = mysql_connect("localhost", "root", "%P7aGcfZz8") or die( mysql_error() ); 
-	mysql_select_db("inge") or die( mysql_error() );
+	include 'dbManager.php';
+	//$conexion_log = mysql_connect("localhost", "root", "%P7aGcfZz8") or die( mysql_error() ); 
+	//mysql_select_db("inge") or die( mysql_error() );
 
 	$sql = "SELECT * from usuarios WHERE alias='$userName' AND password='$password'";
 	$resultset = mysql_query( $sql ) or die( $mysql_error() );
@@ -56,7 +57,7 @@ if( isset($signIn) ){
 					<form class="boxCont" method="POST" onsubmit="return validateFormOnSubmit(this)">
 						<div>
 							<label for="userName">Usuario</label>
-							<input id="bac_userName" type="text" name="userName" placeholder="Escriba aqui su nombre de usuario" />
+							<input id="bac_userName" type="text" name="userName" placeholder="Escriba aqui su nombre de usuario" autofocus />
 						</div>
 						
 						<div>

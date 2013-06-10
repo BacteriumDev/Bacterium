@@ -41,7 +41,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 			  </div>
 			  <div class="bigbox">
 				<div class="box">
-				<a href="#" class="button">Torneos</a>
+				<a href="menuTorneos.php" class="button">Torneos</a>
 				<img src="images/trophy.png" border="0" align="horizontalcenter">
 				</div>
 				</div>

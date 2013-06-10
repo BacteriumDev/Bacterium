@@ -60,7 +60,7 @@ function makeactive(tab)
 						   <li onclick="makeactive(4)"><a class="" id="tab4"><span>Liga</span></a></li>
 						</ul>
 					 </li>
-					 <li class='has-sub '><a href="partida.php"><span>Partidas</span></a>
+					 <li class='has-sub '><a><span>Partidas</span></a>
 						<ul>
 						   <li onclick="makeactive(5)"><a class="" id="tab5"><span>VS. Inteligencia Artificial</span></a></li>
 						   <li onclick="makeactive(6)"><a class="" id="tab6"><span>Multijugador</span></a></li>
