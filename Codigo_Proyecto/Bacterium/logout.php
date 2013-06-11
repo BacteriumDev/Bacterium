@@ -7,7 +7,7 @@ session_start();
 $old_user = $_SESSION['valid_user'];
 unset($_SESSION['authorized']);
 unset($_SESSION['valid_user']);
-unset($_SESSION['username']);
+unset($_SESSION['alias']);
 session_destroy();
 
 if(!empty($old_user))

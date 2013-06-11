@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+$saludo = "";
+
+// Comprueba si el usuario se ha conectado
+if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESSION['authorized'] != 'yes' ){
+	header( "Location: bacterium_accessdenied.php" );
+	exit();
+}
+
+?>
+
 <html>
 <head>
 <title> Ingenieria de software </title>
@@ -205,7 +218,7 @@
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="index.php" class="button">Regresar</a>
+				<a href="bacterium_hub.php" class="button">Regresar</a>
 			</div>
 			
 			<h2>Partida vs Inteligencia Artificial</h2>

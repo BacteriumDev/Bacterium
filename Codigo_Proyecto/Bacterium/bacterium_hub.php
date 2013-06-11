@@ -9,7 +9,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 	exit();
 }else
 {
-	$saludo = "Bienvenido a Bacterium " .$_SESSION['username'] ."!!"; 
+	$saludo = "Bienvenido a Bacterium " .$_SESSION['alias'] ."!!"; 
 }
 ?>
 <html>
@@ -26,7 +26,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="#" class="button"><?php echo $_SESSION['username'] ?> - Configuraciones</a>
+				<a href="#" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
 				<a href="logout.php" class="button">Cerrar sesión</a>
 			</div>
 			
@@ -35,7 +35,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 			<div id="box-wrapper">
 			  <div class="bigbox">
 				<div class="box"> 
-				<a href="#" class="button">Partidas</a>
+				<a href="partida.php" class="button">Partidas</a>
 				<img src="images/mp.png" border="0" align="horizontalcenter">
 				</div>
 			  </div>

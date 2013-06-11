@@ -92,7 +92,7 @@
 					<div id="wrapper">
 						
 						<div id="loginbar" align="right">
-							<a href="#" class="button"><?php echo $_SESSION['username'] ?> - Configuraciones</a>
+							<a href="#" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
 							<a href="logout.php" class="button">Cerrar sesión</a>
 						</div>
 						<h2>Desea llevar a cabo la calendarizacion de este torneo ahora?</h2>

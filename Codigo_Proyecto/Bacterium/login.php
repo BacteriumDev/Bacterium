@@ -6,9 +6,9 @@ $resultado="";
 if( isset($signIn) ){
 	
 	// Conectar a la base de datos
-	include 'dbManager.php';
-	//$conexion_log = mysql_connect("localhost", "root", "%P7aGcfZz8") or die( mysql_error() ); 
-	//mysql_select_db("inge") or die( mysql_error() );
+	//include 'dbManager.php';
+	$conexion_log = mysql_connect("localhost", "root", "%P7aGcfZz8") or die( mysql_error() ); 
+	mysql_select_db("inge") or die( mysql_error() );
 
 	$sql = "SELECT * from usuarios WHERE alias='$userName' AND password='$password'";
 	$resultset = mysql_query( $sql ) or die( $mysql_error() );
@@ -19,7 +19,7 @@ if( isset($signIn) ){
 		session_start();
 		$_SESSION['authorized'] = 'yes';
 		$_SESSION['valid_user'] = $row['idUsuarios'];
-		$_SESSION['username'] = $row['alias'];
+		$_SESSION['alias'] = $row['alias'];
 		
 		mysql_close($conexion_log);	// cerrar la conexión actual a la base de datos, ya que desde el header de las páginas administrativas se vuelve a conectar.
 		

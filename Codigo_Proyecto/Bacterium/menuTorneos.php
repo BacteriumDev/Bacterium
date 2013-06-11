@@ -12,7 +12,7 @@
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="#" class="button"><?php echo $_SESSION['username'] ?> - Configuraciones</a>
+				<a href="#" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
 				<a href="logout.php" class="button">Cerrar sesión</a>
 			</div>
 			<h2>Menu de torneos</h2>
