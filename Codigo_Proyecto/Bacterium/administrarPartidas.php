@@ -7,20 +7,6 @@
 	
 	include 'dbManager.php';
 	
-	$sqlquery = "INSERT INTO  partidas(
-		idPartidas,
-		tipo_partida,
-		modo_juego,
-		numero_jugadores,
-		idAdmin,
-		estado,
-		idTorneoFK,
-		numFaseFK)
-	VALUES(
-		NULL,'multiplayer','$_POST[tipo]',0,$_SESSION[valid_user],'creada', NULL , NULL)";
-
-	$result = mysql_query($sqlquery) or trigger_error(mysql_error());
-	
 	$sqlquerypartidas = 
 	"SELECT 
 		idPartidas, 
@@ -31,7 +17,7 @@
 	FROM
 		partidas
 	WHERE
-		idAdmin = $_SESSION[valid_user] AND tipo_partida = 'multiplayer'";
+		idAdmin = $_SESSION[valid_user]";
 ?>
 
 
@@ -86,7 +72,7 @@
 					echo "<td valign='top'>" . nl2br( $modo ) . "</td>"; 
 					echo "<td valign='top'>" . nl2br( $row['numero_jugadores'] ) . "</td>";
 					echo "<td valign='top'>" . nl2br( $row['estado'] ) . "</td>";
-					echo "<td valign='top'><a href=#?id={$row['idPartidas']}>Entrar</a></td>"; 
+					echo "<td valign='top'><a href=eliminarPartida.php?id={$row['idPartidas']} class=confirmation>Eliminar</a></td>"; 
 					echo "</tr>"; 
 				}
 			?>
@@ -101,3 +87,13 @@
 		</div>
 	</body>
 </html>
+
+<script>
+	var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Esta seguro de que desea eliminar esta partida? Esta accion es irreversible.')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>

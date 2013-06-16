@@ -22,7 +22,7 @@
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="menuPartidas.php" class="button">Regresar</a>
+				<a href="partidas_hub.php" class="button">Regresar</a>
 			</div>
 			
 			<div id="tournycontent">
@@ -31,17 +31,17 @@
 					<form class="boxCont"form action="agregarPartida.php" method="post">
 						<div>
 							<label for="TipoPartida">Tipo de partida:</label> 
-								<select name="Tipo de partida" >
-									<option>2 jugadores (1 vs. 1)</option>
-									<option>4 jugadores (1 vs. 1 vs. 1 vs. 1)</option>
-									<option>4 jugadores (2 vs. 2)</option>
+								<select id="tipo" name="tipo" >
+									<option value="1">2 jugadores (1 vs. 1)</option>
+									<option value="2">4 jugadores (1 vs. 1 vs. 1 vs. 1)</option>
+									<option value="3">4 jugadores (2 vs. 2)</option>
 								</select>
 						</div>
 
 						
 						
 						<div>
-							<input type="submit" value="Continuar" class="btn right"/>
+							<input type="submit" value="Crear partida" class="btn right"/>
 						</div>
 					</form>
 				</div>

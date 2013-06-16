@@ -1,8 +1,10 @@
 <?php session_start(); 
-	if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESSION['authorized'] != 'yes' ){
-		header( "Location: bacterium_accessdenied.php" );
-		exit();
-	}
+
+// Comprueba si el usuario se ha conectado
+if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESSION['authorized'] != 'yes' ){
+	header( "Location: bacterium_accessdenied.php" );
+	exit();
+}
 ?>
 <html>
 <head>

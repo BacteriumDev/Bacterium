@@ -9,6 +9,22 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 	exit();
 }
 
+$nivel = $_POST['dificultad'];
+$saludo = "";
+if($nivel == 1)
+{
+	$saludo = "Facil";
+}else if($nivel == 2)
+{
+	$saludo = "Normal";
+}else if($nivel == 3)
+{
+	$saludo = "Dificil";
+}
+
+
+
+
 ?>
 
 <html>
@@ -92,30 +108,30 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 		{
 			//alert("contagio arriba");
 			rec_contagio(num1-1,num2,pos);
-			contagio_indirecto_derecha(num1,num2+1);
-			contagio_indirecto_abajo(num1+1,num2);
-			contagio_indirecto_izquierda(num1,num2-1);
+			//contagio_indirecto_derecha(num1,num2+1);
+			//contagio_indirecto_abajo(num1+1,num2);
+			//contagio_indirecto_izquierda(num1,num2-1);
 		}else if(pos == 2)
 		{
 			//alert("contagio derecha");
 			rec_contagio(num1,num2+1,pos);
-			contagio_indirecto_arriba(num1-1,num2);
-			contagio_indirecto_abajo(num1+1,num2);
-			contagio_indirecto_izquierda(num1,num2-1);
+			//contagio_indirecto_arriba(num1-1,num2);
+			//contagio_indirecto_abajo(num1+1,num2);
+			//contagio_indirecto_izquierda(num1,num2-1);
 		}else if(pos == 3)
 		{
 			//alert("contagio abajo");
 			rec_contagio(num1+1,num2,pos);
-			contagio_indirecto_derecha(num1,num2+1);
-			contagio_indirecto_arriba(num1-1,num2);
-			contagio_indirecto_izquierda(num1,num2-1);
+			//contagio_indirecto_derecha(num1,num2+1);
+			//contagio_indirecto_arriba(num1-1,num2);
+			//contagio_indirecto_izquierda(num1,num2-1);
 		}else if(pos == 4)
 		{
 			//alert("contagio izquierda");
 			rec_contagio(num1,num2-1,pos);
-			contagio_indirecto_derecha(num1,num2+1);
-			contagio_indirecto_abajo(num1+1,num2);
-			contagio_indirecto_arriba(num1-1,num2);
+			//contagio_indirecto_derecha(num1,num2+1);
+			//contagio_indirecto_abajo(num1+1,num2);
+			//contagio_indirecto_arriba(num1-1,num2);
 		}
 
 	}
@@ -218,10 +234,10 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="bacterium_hub.php" class="button">Regresar</a>
+				<a href="partidas_hub.php" class="button">Regresar a partidas</a>
 			</div>
 			
-			<h2>Partida vs Inteligencia Artificial</h2>
+			<h2>Partida en solitario contra IA nivel: <?php echo $saludo ?></h2>
 			
 		<table align="center" border="1" bordercolor="000000" style="background-color:FFFFFF" width="100">
 			<?php 
@@ -263,7 +279,9 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 
 		
 
-
+			<div id="footer">
+					<h3> Universidad de Costa Rica - I Semestre 2013<br>Ingenieria de Software 2 </h3>
+			</div>
 		
 		</div>
 	</body>

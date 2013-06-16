@@ -7,31 +7,20 @@
 	
 	include 'dbManager.php';
 	
-	$sqlquery = "INSERT INTO  partidas(
-		idPartidas,
-		tipo_partida,
-		modo_juego,
-		numero_jugadores,
-		idAdmin,
-		estado,
-		idTorneoFK,
-		numFaseFK)
-	VALUES(
-		NULL,'multiplayer','$_POST[tipo]',0,$_SESSION[valid_user],'creada', NULL , NULL)";
-
-	$result = mysql_query($sqlquery) or trigger_error(mysql_error());
-	
 	$sqlquerypartidas = 
 	"SELECT 
-		idPartidas, 
-		tipo_partida, 
-		modo_juego, 
-		numero_jugadores, 
-		estado 
+		p.idPartidas,
+		p.idAdmin,
+		u.alias as aliasadmin,
+		p.tipo_partida, 
+		p.modo_juego, 
+		p.numero_jugadores, 
+		p.estado
 	FROM
-		partidas
+		partidas p 
+		JOIN usuarios u ON p.idAdmin = u.idUsuarios
 	WHERE
-		idAdmin = $_SESSION[valid_user] AND tipo_partida = 'multiplayer'";
+		tipo_partida = 'multiplayer' AND (estado = 'creada' OR estado = 'activa')";
 ?>
 
 
@@ -56,7 +45,8 @@
 		<div id="content">
 		<table id="tabla" cellpadding="6">
 		<thead>
-			<th>ID</th>
+			<th>ID Partida</th>
+			<th>Administrador</th>
 			<th>Tipo</th>
 			<th>Modo de juego</th>
 			<th>Jugadores</th>
@@ -69,7 +59,8 @@
 				while($row = mysql_fetch_array($result)){ 
 					foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
 					echo "<tr>";  
-					echo "<td valign='top'>" . nl2br( $row['idPartidas'] ) . "</td>";  
+					echo "<td valign='top'>" . nl2br( $row['idPartidas'] ) . "</td>";
+					echo "<td valign='top'>" . nl2br( $row['aliasadmin'] ) . "</td>";
 					echo "<td valign='top'>" . nl2br( $row['tipo_partida'] ) . "</td>";
 					$modo = "Default";
 					$dato = $row['modo_juego'];

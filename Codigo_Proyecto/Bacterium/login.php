@@ -6,9 +6,9 @@ $resultado="";
 if( isset($signIn) ){
 	
 	// Conectar a la base de datos
-	//include 'dbManager.php';
-	$conexion_log = mysql_connect("localhost", "root", "%P7aGcfZz8") or die( mysql_error() ); 
-	mysql_select_db("inge") or die( mysql_error() );
+	include 'dbManager.php';
+	//$conexion_log = mysql_connect("localhost", "root", "%P7aGcfZz8") or die( mysql_error() ); 
+	//mysql_select_db("inge") or die( mysql_error() );
 
 	$sql = "SELECT * from usuarios WHERE alias='$userName' AND password='$password'";
 	$resultset = mysql_query( $sql ) or die( $mysql_error() );

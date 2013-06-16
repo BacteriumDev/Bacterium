@@ -35,7 +35,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 			<div id="box-wrapper">
 			  <div class="bigbox">
 				<div class="box"> 
-				<a href="partida.php" class="button">Partidas</a>
+				<a href="menuPartidas.php" class="button">Partidas</a>
 				<img src="images/mp.png" border="0" align="horizontalcenter">
 				</div>
 			  </div>
