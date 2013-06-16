@@ -39,7 +39,7 @@
 	function ChangeColor(tableRow, highLight)
     {
 		//console.log(tableRow.style.backgroundColor);
-		if (!(tableRow.style.backgroundColor == '#794044'))
+		if (!(tableRow.style.backgroundColor == '#ff8809'))
 		{
 		if(tableRow.style.backgroundColor == 'white' && highLight == true){
 		  tableRow.style.backgroundColor = '#dcfac9';
@@ -47,7 +47,7 @@
 		else if(highLight == false)
 		{
 			//console.log(tableRow.style.backgroundColor);
-			if (tableRow.style.backgroundColor == 'rgb(121, 64, 68)'){
+			if (tableRow.style.backgroundColor == 'rgb(255, 136, 9)'){
 				//console.log("No borrar");
 			}
 			else{
@@ -66,8 +66,12 @@
 		if (tableRow.style.backgroundColor == 'white' || tableRow.style.backgroundColor == 'rgb(220, 250, 201)')
 		{
 			bleachRows(tableRow); //limpia todos los rows para que solo uno este seleccionado
-		  tableRow.style.backgroundColor = '#794044';
-		  document.getElementById('cosa').href = "calendarizarTorneo.php?nombreTorneo="+nombreTorneo.toString();
+		  tableRow.style.backgroundColor = '#ff8809';
+		  document.getElementById('calendarizar').href = "calendarizarTorneo.php?nombreTorneo="+nombreTorneo.toString();
+		  document.getElementById('suspender').href = "suspenderTorneo.php?nombreTorneo="+nombreTorneo.toString();
+		  document.getElementById('reanudar').href = "reanudarTorneo.php?nombreTorneo="+nombreTorneo.toString();
+		  document.getElementById('listaParticipantes').href = "listaParticipantesTorneo.php?nombreTorneo="+nombreTorneo.toString();
+		  document.getElementById('eliminar').href = "eliminarTorneo.php?nombreTorneo="+nombreTorneo.toString();
 		}
 		else 
 		{
@@ -138,26 +142,32 @@
 				<div id="box-wrapper">
 				  <div class="bigbox">
 					<div class="box" > 
-					<a id="cosa" href="#" class="button">Calendarizar</a>
+					<a id="calendarizar" href="#" class="button">Calendarizar</a>
 					<img src="images/google-calendar-icon.png" border="0" align="horizontalcenter">
 					</div>
 				  </div>
 				  <div class="bigbox">
 					<div class="box">
-					<a href="#" class="button">Suspender Torneo</a>
+					<a id="suspender" href="#" class="button">Suspender Torneo</a>
 					<img src="images/bth_stop_sign.png" border="0" align="horizontalcenter">
 					</div>
 					</div>
 				  <div class="bigbox">
 					<div class="box">
-					<a href="#" class="button">Reanudar torneo</a>
+					<a id="reanudar" href="#" class="button">Reanudar torneo</a>
 					<img src="images/go.jpg" border="0" align="horizontalcenter">
 					</div>
 				  </div>
 				  <div class="bigbox">
 					<div class="box">
-					<a href="#" class="button">Ver lista de participantes</a>
+					<a id="listaParticipantes" href="#" class="button">Ver lista de participantes</a>
 					<img src="images/list.jpg" border="0" align="horizontalcenter">
+					</div>
+				  </div>
+				  <div class="bigbox">
+					<div class="box">
+					<a id="eliminar" href="#" class="button">Eliminar torneo</a>
+					<img src="images/Red_x.png" border="0" align="horizontalcenter">
 					</div>
 				  </div>
 				</div>
@@ -169,5 +179,11 @@
 		</body>
 	</html>
 <?php
+
+	if ( isset($_GET['estado'] )){
+		print '<script type="text/javascript">'; 
+		print 'alert("El torneo que selecciono no puede ser suspendido o reanudado.")'; 
+		print '</script>';
+	}
 	//Aqui hay que hacer un listado de los torneos del usuario y permitirle modificar la calendarizacion y otras cosas
 ?>

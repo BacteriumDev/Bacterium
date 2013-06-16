@@ -14,7 +14,7 @@
 	}//necesario?
 	
 	
-	
+	$s_nombre = mysql_real_escape_string($_POST['NombreTorneo']);
 	
 	
 	$datetimeInicio = "$_POST[InsFechaInicio] $_POST[InsHoraInicio]";
@@ -32,7 +32,7 @@
 		include 'dbManager.php';
 
 		$sql = "INSERT INTO torneos(nombre,tipo_eliminacion,tipo_participacion,max_participantes,estado,idAdmin,inscripcion_fecha_inicio,inscripcion_fecha_final)
-				VALUES('$_POST[NombreTorneo]','$_POST[TipoEliminacion]','$_POST[TipoParticipacion]',$_POST[NumMaxParticipantes],'Creado',$_SESSION[valid_user]
+				VALUES('$s_nombre','$_POST[TipoEliminacion]','$_POST[TipoParticipacion]',$_POST[NumMaxParticipantes],'Inscripcion',$_SESSION[valid_user]
 				,'$datetimeInicio','$datetimeFin')";
 		
 		$result = mysql_query($sql) or trigger_error(mysql_error());
@@ -56,8 +56,14 @@
 			//echo "$value dd \n";
 			$numParticipantes = $value;
 		}
-		
-		$numBrackets = ceil(sqrt($numParticipantes));
+		$numBrackets = 0;
+		if ($_POST['TipoEliminacion'] == "Eliminacion Simple"){
+			$numBrackets = ceil(log($numParticipantes,2));
+		} else if ($_POST['TipoEliminacion'] == "Eliminacion Doble"){
+			$numBrackets = ceil(log($numParticipantes,2))+ceil(log(log($numParticipantes,2),2));
+		} else if ($_POST['TipoEliminacion'] == "Liguilla"){
+			$numBrackets = $numParticipantes-1;
+		}
 		//echo "$numBrackets\n";
 		
 		for ($i = 1; $i <= $numBrackets; $i++){
@@ -76,6 +82,7 @@
 			$sql = "INSERT INTO fasetorneo(Torneos_idTorneos,numFase) VALUES ($idTorneo,$i)"; // funciona!. inserta fases del torneo cuando se crea
 			$result = mysql_query($sql) or trigger_error(mysql_error());
 		}
+		
 		//***25-mayo*** insert de fases
 		?> 
 			<html>

@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start(); 
+	if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESSION['authorized'] != 'yes' ){
+		header( "Location: bacterium_accessdenied.php" );
+		exit();
+	}
+?>
 <html>
 <head>
 <title> Ingenieria de software </title>

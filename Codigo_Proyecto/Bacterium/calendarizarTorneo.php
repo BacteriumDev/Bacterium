@@ -9,29 +9,19 @@
 	extract( $_REQUEST );
 	
 	
-	$torneosPorID = "SELECT * FROM torneos WHERE `nombre = '$_GET[nombreTorneo]'";
-	$sql = "SELECT max_participantes FROM torneos WHERE idAdmin = $_SESSION[valid_user] AND nombre = '$_GET[nombreTorneo]'";
+	
+	
+	$sql = "SELECT idTorneos FROM torneos WHERE idAdmin = $_SESSION[valid_user] AND nombre = '$_GET[nombreTorneo]'";
 	
 	$result = mysql_query($sql) or trigger_error(mysql_error());
-	$numParticipantes;
 	
-	while($row = mysql_fetch_array($result)){ 
-		foreach($row AS $key => $value) { 
-			$row[$key] = stripslashes($value);
-			
-		}
-		//echo "$value dd \n";
-		$numParticipantes = $value;
-	}
+	$row = mysql_fetch_array($result);
 	
-	$numBrackets = ceil(sqrt($numParticipantes));
-	//echo "$numBrackets\n";
+	$id_Torneo = $row['idTorneos'];
 	
-	for ($i = 1; $i <= $numBrackets; $i++){
-		//echo "<h2>INSERT INTO fasetorneo(Torneos_idTorneos,numFase) VALUES ($_GET[nombreTorneo],$i)</h2> ";
-	}
+	$sql = "SELECT numfase,fecha_fase FROM fasetorneo WHERE Torneos_idTorneos = $row[0] ORDER BY numfase";
 	
-	//print "<h2>$_GET[nombreTorneo]</h2>";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
 	
 ?>
 
@@ -42,6 +32,7 @@
 		<link href="stylesheets/style.css" rel="stylesheet" type="text/css">
 		<link href="stylesheets/buttonstyle.css" rel="stylesheet" type="text/css">
 		<link href="stylesheets/tablestyle.css" rel="stylesheet" type="text/css">
+		<script src="scripts/tablasdinamicas.js"></script>
 	</head>
 	
 		<body>
@@ -52,6 +43,33 @@
 				</div>
 				
 				<h2>Calendarizacion de: <?php echo $_GET[nombreTorneo]?></h2>
+				
+				<table id="Fases del torneo" cellpadding="8" class="center">
+				<thead>
+					<th>Numero de fase</th>
+					<th>Fecha</th> 
+				</thead>
+				<tbody>
+				
+				<?php
+				$id = 0;
+				$clickedId; //dafuq? no creo que funcione
+				$result = mysql_query($sql) or trigger_error(mysql_error()); 
+				while($row = mysql_fetch_array($result)){ 
+					foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } //quitarle el onmouseover y onmouseout
+					echo "<tr id=$id onmouseover= \"ChangeColor(this,true)\" onmouseout =\"ChangeColor(this,false)\" 
+					onClick= \"getRow(event,this)\">";  
+					echo "<td valign='top'>" . nl2br( $row['numfase']) . "</td>";  
+					echo "<td valign='top'>" . nl2br( $row['fecha_fase']) . "</td>";
+					echo "</tr>";
+					$id++;
+				}
+				?>
+		
+				
+				</tbody>
+				</table>
+				
 				<div id="footer">
 					<h3> Universidad de Costa Rica - I Semestre 2013<br>Ingenieria de Software 2 </h3>
 				</div>
