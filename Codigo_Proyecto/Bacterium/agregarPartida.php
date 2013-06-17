@@ -56,7 +56,7 @@
 		<div id="content">
 		<table id="tabla" cellpadding="6">
 		<thead>
-			<th>ID</th>
+			<th>ID Partida</th>
 			<th>Tipo</th>
 			<th>Modo de juego</th>
 			<th>Jugadores</th>

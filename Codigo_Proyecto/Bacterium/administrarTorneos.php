@@ -102,7 +102,6 @@
 				
 				<div id="loginbar" align="right">
 					<a href="menuTorneos.php" class="button">Regresar</a>
-					<a href="#" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
 					<a href="logout.php" class="button">Cerrar sesión</a>
 				</div>
 				

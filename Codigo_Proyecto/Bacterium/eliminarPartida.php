@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 $respuesta = "";
 
 // Comprueba si el usuario se ha conectado

@@ -1,5 +1,5 @@
 <?php
-//extract($_REQUEST);
+extract($_REQUEST);
 
 $resultado="";
 

@@ -26,7 +26,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="#" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
+				<a href="usuarioEdit.php" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
 				<a href="logout.php" class="button">Cerrar sesión</a>
 			</div>
 			
