@@ -43,6 +43,7 @@ function getRow(e, tableRow){
 	{
 		bleachRows(tableRow); //limpia todos los rows para que solo uno este seleccionado
 	  tableRow.style.backgroundColor = '#ff8809';
+	  document.getElementById('fase').value = e.target.parentNode.getElementsByTagName("td")[0].textContent;
 	  /*document.getElementById('calendarizar').href = "calendarizarTorneo.php?nombreTorneo="+nombreTorneo.toString();
 	  document.getElementById('suspender').href = "suspenderTorneo.php?nombreTorneo="+nombreTorneo.toString();
 	  document.getElementById('reanudar').href = "reanudarTorneo.php?nombreTorneo="+nombreTorneo.toString();
