@@ -5,6 +5,7 @@
 		exit();
 	}
 	
+	
 	$fecha = date('Y-m-d', time());
 	$hora  = date('H:i:s', time());
 
@@ -12,7 +13,7 @@
 	$horaFin	   = "23:59:00";
 	
 	
-	ini_set('display_errors','On');
+	//ini_set('display_errors','On');
 	
 	
 	
@@ -46,6 +47,8 @@
 <link href="stylesheets/buttonstyle.css" rel="stylesheet" type="text/css">
 <link href="stylesheets/tournyboxstyle.css" rel="stylesheet" type="text/css">
 
+<script src="scripts/validatortor.js"></script>
+
 </head>
 	<body>
 		<div id="wrapper">
@@ -57,10 +60,10 @@
 			<div id="tournycontent">
 				<div id="tourny">
 					<h2>Complete la informacion del torneo a crear</h2>
-					<form class="boxCont"form action="AgregarTorneo.php" method="post">
+					<form class="boxCont"form action="AgregarTorneo.php" method="post" onsubmit="return validateFormOnSubmit(this)">
 						<div>
 							<label for="NombreTorneo">Nombre de torneo:</label> 
-							<input id="NombreTorneo" type="text" name="NombreTorneo" placeholder="Escriba aqui el nombre del nuevo torneo" autofocus />
+							<input id="bac_NombreTorneo" type="text" name="NombreTorneo" placeholder="Escriba aqui el nombre del nuevo torneo" autofocus />
 						</div>
 						<div>
 							<label for="TipoEliminacion">Tipo de eliminacion:</label> 
@@ -80,7 +83,7 @@
 						</div>
 						<div>
 							<label for="NumMaxParticipantes">Numero maximo de participantes:</label>
-							<input id="NumMaxParticipantes" input type="number" name= "NumMaxParticipantes" placeholder=2 min="2" max= "64"/>
+							<input id="bac_NumMaxParticipantes" input type="number" name= "NumMaxParticipantes" placeholder=2 min="2" max= "64"/>
 						</div>
 						<!--<div>Estado: <input type="text" name="Estado" /></div>
 						<<div>idAdmin: <input type="text" name="IdAdmin" /></div> -->
@@ -114,3 +117,18 @@
 		</div>
 	</body>
 </html>
+
+<?php
+	//Verifican si algun dato fue detectado como invalido por la pagina de php agregarTorneo.php
+	//Le indica al usuario por medio de un popup la posible causa del error.
+	if ( isset($_GET['empty'])){
+		print '<script type="text/javascript">'; 
+		print 'alert("Algun campo esta vacio, intente de nuevo crear el torneo")'; 
+		print '</script>';
+	}
+	if ( isset($_GET['invalid'])){
+		print '<script type="text/javascript">'; 
+		print 'alert("Existen campos con valores invalidos, intente de nuevo crear el torneo")'; 
+		print '</script>';
+	}
+?>
