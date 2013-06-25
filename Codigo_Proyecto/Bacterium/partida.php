@@ -21,18 +21,67 @@ if($nivel == 1)
 {
 	$saludo = "Dificil";
 }
+	include 'dbManager.php';
+	//seteado de opciones de configuracion
+	//get from DB
+	$sql = "SELECT conf_modo_pantalla,conf_tileset,conf_vol_fx,conf_vol_mus FROM usuarios WHERE idUsuarios = $_SESSION[valid_user]";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
+	$row = mysql_fetch_array($result);
+	//set to form
+	
+	$modoPantalla 	= $row['conf_modo_pantalla'];
+	$tileset 	= $row['conf_tileset'];
+	$volFX 		= $row['conf_vol_fx'];
+	$volMus 	= $row['conf_vol_mus'];
 
+	
+	//echo document.getElementById('audiotag1').volume
+	$tilesetPath;
+	if ($tileset == "Basicas"){
+		$tilesetPath = "images/partida/";
+	}else{
+		$tilesetPath = "images/partida/metalicas1/";
+	}
+
+	
 
 
 
 ?>
-
 <html>
 <head>
 <title> Ingenieria de software </title>
 <meta http-equiv="Content-Type" content="text/html"; charset="ISO-8859-1">
 <link href="stylesheets/style.css" rel="stylesheet" type="text/css">
 <link href="stylesheets/buttonstyle.css" rel="stylesheet" type="text/css">
+<link href="stylesheets/loginboxstyle.css" rel="stylesheet" type="text/css">
+<script src="scripts/fullscreenManager.js"></script>
+<style type="text/css">
+	#partida:-webkit-full-screen {
+		width: 100%;
+		height: 100%;
+	}
+	#partida:-moz-full-screen {
+		width: 100%;
+		height: 100%;
+	}
+	.partida:--webkit-full-screen{
+		width: 100%;
+
+		height: 50%;
+	}
+</style>
+<audio id="audiotag1" src="audio/action.wav" preload="auto"></audio>
+<audio id="audiotag2" src="audio/music.wav" preload="auto" loop="true" autoplay="autoplay" ></audio>
+
+<script>
+	//var usarConf = confirm('cosas');
+	document.getElementById('audiotag1').volume = '<?php echo $volFX/100;?>'; //fiiiix
+	document.getElementById('audiotag2').volume = '<?php echo $volMus/100;?>';
+	//console.log( '<?php echo $row[conf_vol_fx];?>');
+	var tilesetPath = '<?php echo $tilesetPath;?>';
+	console.log(tilesetPath); // global con el path al tileset usado
+</script>
 
 <script>
 	var turnojugador = true;
@@ -92,10 +141,12 @@ if($nivel == 1)
 				dir = 1;
 			}
 			
-			document.getElementById("bac"+x).src="images/partida/jug" + dir + ".PNG";
+			document.getElementById("bac"+x).src=tilesetPath+"jug" + dir + ".PNG";
 			document.getElementsByName("direccion"+x)[0].value = dir;
 			//alert("nueva dir: " + dir);
 			//alert("Turno de la IA");
+			//document.getElementById('audiotag1').volume = '<?php echo $volMus/100;?>';
+			document.getElementById('audiotag1').play(); //agregado por juanca
 			contagio(pos.split("")[0],pos.split("")[1],dir);
 		}
 	}
@@ -143,7 +194,7 @@ if($nivel == 1)
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			if(dir == 3)
 			{
-				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -161,7 +212,7 @@ if($nivel == 1)
 			if(dir == 4)
 			{
 				
-				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -177,7 +228,7 @@ if($nivel == 1)
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			if(dir == 1)
 			{
-				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -193,7 +244,7 @@ if($nivel == 1)
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			if(dir == 2)
 			{
-				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -215,7 +266,7 @@ if($nivel == 1)
 		{
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			//alert("entrando a contagio rec bac"+i+j);
-			document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".PNG";
+			document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
 			document.getElementsByName("jugador"+i+j)[0].value = 1;
 			num1 = parseInt(i);
 			num2 = parseInt(j);
@@ -230,7 +281,7 @@ if($nivel == 1)
 </head>
 
 	<body onload="crearTablero()">
-
+	
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
@@ -238,31 +289,32 @@ if($nivel == 1)
 			</div>
 			
 			<h2>Partida en solitario contra IA nivel: <?php echo $saludo ?></h2>
-			
-		<table align="center" border="1" bordercolor="000000" style="background-color:FFFFFF" width="100">
+		
+		
+		<table  id="partida"  align="center" border="1" bordercolor="000000" style="background-color:FFFFFF" width="100">
 			<?php 
 				for($i = 0; $i < 8; ++$i)
 				{
-					echo '<tr>';
+					echo '<tr >';
 					for($j = 0; $j < 8; ++$j)
 					{
 						$numrandom = rand(1,4);
 						if($i==0 && $j==0)
 						{
 							
-							echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/jug'.$numrandom.'.PNG" id="bac'.$i.$j.'"/></td>';
+							echo '<td   onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'jug'.$numrandom.'.PNG" class="partida"  id="bac'.$i.$j.'"/></td>';
 							echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 							echo '<input type="hidden" name="jugador'. $i.$j .'" value="1">';
 							echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$numrandom.'">';
 						}else if($i==7 && $j==7)
 						{
-							echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/cpu'.$numrandom.'.PNG" id="bac'.$i.$j.'"/></td>';
+							echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'cpu'.$numrandom.'.PNG" class="partida" id="bac'.$i.$j.'"/></td>';
 							echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 							echo '<input type="hidden" name="jugador'. $i.$j .'" value="2">';
 							echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$numrandom.'">';
 						}else
 						{
-							echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/neutral'.$numrandom.'.PNG" id="bac'.$i.$j.'"/></td>';
+							echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'neutral'.$numrandom.'.PNG" class="partida" id="bac'.$i.$j.'"/></td>';
 							echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 							echo '<input type="hidden" name="jugador'. $i.$j .'" value="0">';
 							echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$numrandom.'">';
@@ -276,6 +328,9 @@ if($nivel == 1)
 			?>
 			
 		</table>
+		<div  id="fullscreen" style="text-align:center" hidden="true">
+		<button style="width:54%" class="boton"  onClick="goFullscreen('partida'); return false"> Modo pantalla completa </button>	
+		</div>
 
 		
 
@@ -286,3 +341,10 @@ if($nivel == 1)
 		</div>
 	</body>
 </html>
+
+<script>
+	if('<?php echo $modoPantalla;?>' == "Pantalla Completa"){
+		document.getElementById('fullscreen').hidden = false;
+	}
+</script>
+

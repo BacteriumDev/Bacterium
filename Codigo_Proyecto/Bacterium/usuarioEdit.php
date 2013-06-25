@@ -35,7 +35,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 			  </div>
 			  <div class="bigbox2">
 				<div class="box">
-				<a href="#" class="button">Configuraciones de partida</a>
+				<a href="configurarOpciones.php" class="button">Configuraciones de partida</a>
 				<img src="images/gear.png" border="0" align="horizontalcenter">
 				</div>
 			</div>

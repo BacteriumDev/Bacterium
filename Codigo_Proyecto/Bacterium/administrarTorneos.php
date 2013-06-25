@@ -180,8 +180,12 @@
 <?php
 
 	if ( isset($_GET['estado'] )){
-		print '<script type="text/javascript">'; 
-		print 'alert("El torneo que selecciono no puede ser suspendido o reanudado.")'; 
+		print '<script type="text/javascript">';
+		if ($_GET['estado'] == 'calendarizacion'){
+			print 'alert("El torneo tiene fechas que necesitan ser re-calendarizadas, arregle el problema e intente de nuevo")';
+		} else{
+			print 'alert("El torneo que selecciono no puede ser suspendido o reanudado.")'; 
+		}
 		print '</script>';
 	}
 	//Aqui hay que hacer un listado de los torneos del usuario y permitirle modificar la calendarizacion y otras cosas
