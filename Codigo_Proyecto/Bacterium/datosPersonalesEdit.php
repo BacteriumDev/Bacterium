@@ -6,7 +6,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 	header( "Location: bacterium_accessdenied.php" );
 	exit();
 }
-
+extract( $_REQUEST );
 include 'dbManager.php';
 
 $sqlfetchdata = "SELECT * FROM usuarios WHERE idUsuarios = $_SESSION[valid_user]";
@@ -20,6 +20,20 @@ $edad = $row['edad'];
 $acerca = $row['acerca'];
 $mdd = $row['miembro_desde'];
 
+if( isset($editPersonal) ){
+	
+	$SendInformationToDatabase=mysql_query("UPDATE usuarios SET alias='$userName', email='$email', pais='$country', edad=$age, acerca='$about' WHERE idUsuarios = $_SESSION[valid_user]");
+	(mysql_affected_rows()) ? $respuesta = "Datos actualizados correctamente" : $respuesta = "No se ha podido efectuar el borrado"; 
+	//echo $respuesta;
+	header( "Location: datosPersonalesEditados.php" );
+	exit();
+}
+
+if( isset($editPassword) )
+{
+	header( "Location: editpassword.php" );
+	exit();
+}
 
 ?>
 
@@ -46,7 +60,7 @@ $mdd = $row['miembro_desde'];
 			<div id="logincontent">
 				<div id="login">
 					<h2>Su informacion personal</h2>
-					<form class="boxCont" method="POST" onsubmit="return validateFormOnSubmit(this)">
+					<form class="boxCont" method="POST" onsubmit="return validateFormOnSubmit(this)" action="datosPersonalesEdit.php">
 						<div>
 							<label for="userName">Usuario</label>
 							<input id="bac_userName" type="text" name="userName" placeholder="Escriba aqui su nombre de usuario" value="<?php echo $alias ?>"/>
