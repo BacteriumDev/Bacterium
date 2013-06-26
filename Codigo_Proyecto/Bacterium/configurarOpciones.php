@@ -60,10 +60,10 @@ include 'dbManager.php';
 		console.log(tileset);
 		switch(tileset){
 			case 0:
-				document.getElementById("muestraTileset").src = "images/partida/jug1.PNG";
+				document.getElementById("muestraTileset").src = "images/partida/jug1.png";
 				break;
 			case 1:
-				document.getElementById("muestraTileset").src = "images/partida/metalicas1/jug1.PNG";
+				document.getElementById("muestraTileset").src = "images/partida/metalicas1/jug1.png";
 				break;
 		}
 	}
@@ -109,7 +109,7 @@ include 'dbManager.php';
 				</div>
 				<div>
 					<label for="muestra"> Muestra del tipo de flechas: </label>
-					<img id="muestraTileset" src= "<?php if($tileset=='Basicas'){echo 'images/partida/jug1.PNG';}else{echo 'images/partida/metalicas1/jug1.PNG';} ?>"/>
+					<img id="muestraTileset" src= "<?php if($tileset=='Basicas'){echo 'images/partida/jug1.png';}else{echo 'images/partida/metalicas1/jug1.png';} ?>"/>
 				</div>
 				<div>
 					<label for="volFX"> Volumen de los efectos de sonido: </label>
