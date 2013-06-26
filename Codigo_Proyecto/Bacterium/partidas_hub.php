@@ -5,6 +5,19 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 	header( "Location: bacterium_accessdenied.php" );
 	exit();
 }
+
+if (isset($_GET['partida'])){
+	include 'dbManager.php';
+	$idpartida = $_GET['partida'];
+	$GetJugadores=mysql_query("SELECT numero_jugadores FROM partidas WHERE idPartidas = '$idpartida'");
+	$GJ=mysql_fetch_assoc($GetJugadores);
+	$num = $GJ['numero_jugadores'];
+	if($num > 0)
+	{
+		$num--;
+		$actualizarJugadores=mysql_query("UPDATE partidas SET numero_jugadores=$num WHERE idPartidas=$idpartida");
+	}
+}
 ?>
 <html>
 <head>

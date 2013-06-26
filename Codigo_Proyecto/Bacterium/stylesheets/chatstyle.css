@@ -1,0 +1,18 @@
+.a
+{
+background:black;
+color:white;
+}
+.b
+{
+background:silver;
+color:black;
+}
+#canvas
+{
+border:1px solid black;
+width:500px;
+margin:0 auto;
+height:150px;
+overflow:auto;
+}

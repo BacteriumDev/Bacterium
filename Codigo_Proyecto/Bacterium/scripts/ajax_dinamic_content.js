@@ -1,5 +1,5 @@
 function callAjax(url, pageElement, callMessage, errorMessage) {  
-    document.getElementById(pageElement).innerHTML = callMessage;  
+    //document.getElementById(pageElement).innerHTML = callMessage;  
     try {  
     req = new XMLHttpRequest(); /* e.g. Firefox */  
     } catch(e) {  

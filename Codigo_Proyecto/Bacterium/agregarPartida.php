@@ -7,6 +7,28 @@
 	
 	include 'dbManager.php';
 	
+	//definir turno
+	$turno = 1;
+	$tablero = "";
+	$tablero = $turno . "||";
+	for($i = 0; $i < 8; ++$i)
+	{
+		for($j = 0; $j < 8; ++$j)
+		{
+			$numrandom = rand(1,4);
+			if($i==0 && $j==0)
+			{
+				$tablero = $tablero . "1" . $numrandom . "||";
+			}else if($i==7 && $j==7)
+			{
+				$tablero = $tablero . "2" . $numrandom . "||";
+			}else
+			{
+				$tablero = $tablero . "0" . $numrandom . "||";
+			}
+		}
+	}
+	
 	$sqlquery = "INSERT INTO  partidas(
 		idPartidas,
 		tipo_partida,
@@ -15,9 +37,11 @@
 		idAdmin,
 		estado,
 		idTorneoFK,
-		numFaseFK)
+		numFaseFK,
+		tablero,
+		turno)
 	VALUES(
-		NULL,'multiplayer','$_POST[tipo]',0,$_SESSION[valid_user],'creada', NULL , NULL)";
+		NULL,'multiplayer','$_POST[tipo]',0,$_SESSION[valid_user],'creada', NULL , NULL, '$tablero', 1)";
 
 	$result = mysql_query($sqlquery) or trigger_error(mysql_error());
 	
@@ -54,14 +78,14 @@
 				<a href="menuPartidas.php" class="button">Regresar</a>
 			</div>
 		<div id="content">
-		<table id="tabla" cellpadding="6">
+		<table id="tabla" cellpadding="5">
 		<thead>
 			<th>ID Partida</th>
 			<th>Tipo</th>
 			<th>Modo de juego</th>
 			<th>Jugadores</th>
 			<th>Estado</th>
-			<th>Acción</th>
+			<!--<th>Acción</th>-->
 		</thead>
 		<tbody>
 			<?php
@@ -86,7 +110,7 @@
 					echo "<td valign='top'>" . nl2br( $modo ) . "</td>"; 
 					echo "<td valign='top'>" . nl2br( $row['numero_jugadores'] ) . "</td>";
 					echo "<td valign='top'>" . nl2br( $row['estado'] ) . "</td>";
-					echo "<td valign='top'><a href=#?id={$row['idPartidas']}>Entrar</a></td>"; 
+					//echo "<td valign='top'><a href=#?id={$row['idPartidas']}>Entrar</a></td>"; 
 					echo "</tr>"; 
 				}
 			?>

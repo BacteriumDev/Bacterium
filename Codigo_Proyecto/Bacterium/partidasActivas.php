@@ -77,7 +77,7 @@
 					echo "<td valign='top'>" . nl2br( $modo ) . "</td>"; 
 					echo "<td valign='top'>" . nl2br( $row['numero_jugadores'] ) . "</td>";
 					echo "<td valign='top'>" . nl2br( $row['estado'] ) . "</td>";
-					echo "<td valign='top'><a href=#?id={$row['idPartidas']}>Entrar</a></td>"; 
+					echo "<td valign='top'><a href=partidamultiplayer.php?id={$row['idPartidas']}&p={$row['numero_jugadores']}>Entrar</a></td>"; 
 					echo "</tr>"; 
 				}
 			?>
