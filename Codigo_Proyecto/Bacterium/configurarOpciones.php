@@ -17,7 +17,7 @@ include 'dbManager.php';
 		//set to DB
 		$sql = "UPDATE usuarios SET conf_modo_pantalla = '$_POST[ModoPantalla]', conf_tileset = '$_POST[Tileset]', conf_vol_fx = $_POST[volFX], conf_vol_mus = $_POST[volMus] WHERE idUsuarios = $_SESSION[valid_user] ";
 		$result = mysql_query($sql) or trigger_error(mysql_error());
-		$row = mysql_fetch_array($result);
+		//$row = mysql_fetch_array($result);
 		//set to form
 		$modoPantalla 	= $_POST['ModoPantalla'];
 		$tileset 	= $_POST['Tileset'];

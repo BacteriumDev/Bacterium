@@ -33,7 +33,7 @@ function salirFullscreen(){
 	//console.log(rows);
 	for(var i=0;i<rows.length;i++){
 		rows[i].style.width = "65px";
-		//rows[i].style.width = "66px";
+		rows[i].style.height = "66px";
 		
 	}
 }

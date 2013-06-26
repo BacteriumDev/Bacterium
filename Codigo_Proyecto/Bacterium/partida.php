@@ -72,12 +72,15 @@ if($nivel == 1)
 	}
 </style>
 <audio id="audiotag1" src="audio/action.wav" preload="auto"></audio>
-<audio id="audiotag2" src="audio/music.wav" preload="auto" loop="true" autoplay="autoplay" ></audio>
+<audio id="audiotag2" src="audio/music.wav" preload="auto" loop="true" autoplay="autoplay"></audio>
 
 <script>
 	//var usarConf = confirm('cosas');
 	document.getElementById('audiotag1').volume = '<?php echo $volFX/100;?>'; //fiiiix
 	document.getElementById('audiotag2').volume = '<?php echo $volMus/100;?>';
+	if ('<?php echo $volMus;?>' == 0){
+		document.getElementById('audiotag2').pause();
+	}
 	//console.log( '<?php echo $row[conf_vol_fx];?>');
 	var tilesetPath = '<?php echo $tilesetPath;?>';
 	console.log(tilesetPath); // global con el path al tileset usado
@@ -86,8 +89,21 @@ if($nivel == 1)
 <script>
 	var turnojugador = true;
 
+	//var mySet = new Set();	
+	var posiciones = {}; //conjunto de posiciones, para el contagio recursivo
+	var posiciones_CPU = {};
+	/*posiciones[12] = true;
+	posiciones["pos12"] = true;
+	console.log(posiciones["pos12"]);
+	console.log(posiciones[13]);
+	if ("pos12" in posiciones){
+		console.log("yup");
+	}*/
+
 	function validarJugada(x)
 	{
+		posiciones = {};
+		posiciones_CPU = {};
 		if(x == 0)
 		{
 			x = "00";
@@ -126,7 +142,7 @@ if($nivel == 1)
 			alert("No puede realizar jugadas durante el turno de la IA");
 		}else
 		{
-			//turnojugador = false;
+			turnojugador = false;
 			if(dir == 1)
 			{
 				dir = 2;
@@ -148,6 +164,8 @@ if($nivel == 1)
 			//document.getElementById('audiotag1').volume = '<?php echo $volMus/100;?>';
 			document.getElementById('audiotag1').play(); //agregado por juanca
 			contagio(pos.split("")[0],pos.split("")[1],dir);
+			checkGane();
+			window.setTimeout(function(){jugadaIA()},1000);
 		}
 	}
 	
@@ -155,31 +173,44 @@ if($nivel == 1)
 	{
 		num1 = parseInt(i);
 		num2 = parseInt(j);
+		posiciones["pos"+num1+num2] = true;
+		//posiciones_CPU["pos"+num1+num2] = false;
 		if(pos == 1)
 		{
 			//alert("contagio arriba");
+			if ("pos"+(num1-1)+num2 in posiciones){
+			}else{
 			rec_contagio(num1-1,num2,pos);
+			}
 			//contagio_indirecto_derecha(num1,num2+1);
 			//contagio_indirecto_abajo(num1+1,num2);
 			//contagio_indirecto_izquierda(num1,num2-1);
 		}else if(pos == 2)
 		{
 			//alert("contagio derecha");
-			rec_contagio(num1,num2+1,pos);
+			if ("pos"+num1+(num2+1) in posiciones){
+			}else{
+			rec_contagio(num1,num2+1,pos);}
 			//contagio_indirecto_arriba(num1-1,num2);
 			//contagio_indirecto_abajo(num1+1,num2);
 			//contagio_indirecto_izquierda(num1,num2-1);
 		}else if(pos == 3)
 		{
 			//alert("contagio abajo");
+			if ("pos"+(num1+1)+num2 in posiciones){
+			}else{
 			rec_contagio(num1+1,num2,pos);
+			}
 			//contagio_indirecto_derecha(num1,num2+1);
 			//contagio_indirecto_arriba(num1-1,num2);
 			//contagio_indirecto_izquierda(num1,num2-1);
 		}else if(pos == 4)
 		{
 			//alert("contagio izquierda");
+			if ("pos"+num1+(num2-1) in posiciones){
+			}else{
 			rec_contagio(num1,num2-1,pos);
+			}
 			//contagio_indirecto_derecha(num1,num2+1);
 			//contagio_indirecto_abajo(num1+1,num2);
 			//contagio_indirecto_arriba(num1-1,num2);
@@ -270,7 +301,180 @@ if($nivel == 1)
 			document.getElementsByName("jugador"+i+j)[0].value = 1;
 			num1 = parseInt(i);
 			num2 = parseInt(j);
-			contagio(num1,num2,dir);			
+			//console.log(i,j);
+			//posiciones["pos"+num1+num2] = true;
+			//if("pos"+num1+num2 in posiciones){
+			//}else{
+			//posiciones_CPU["pos"+i+j] = false;
+			contagio(num1,num2,dir);
+			//}			
+		}
+	}
+
+	function contagio_CPU(i,j,pos)
+	{
+		num1 = parseInt(i);
+		num2 = parseInt(j);
+		posiciones_CPU["pos"+num1+num2] = true;
+		//posiciones["pos"+num1+num2] = false;
+		if(pos == 1)
+		{
+			//alert("contagio arriba");
+			if ("pos"+(num1-1)+num2 in posiciones_CPU){
+			}else{
+			rec_contagio_CPU(num1-1,num2,pos);
+			}
+			//contagio_indirecto_derecha(num1,num2+1);
+			//contagio_indirecto_abajo(num1+1,num2);
+			//contagio_indirecto_izquierda(num1,num2-1);
+		}else if(pos == 2)
+		{
+			//alert("contagio derecha");
+			if ("pos"+num1+(num2+1) in posiciones_CPU){
+			}else{
+			rec_contagio_CPU(num1,num2+1,pos);}
+			//contagio_indirecto_arriba(num1-1,num2);
+			//contagio_indirecto_abajo(num1+1,num2);
+			//contagio_indirecto_izquierda(num1,num2-1);
+		}else if(pos == 3)
+		{
+			//alert("contagio abajo");
+			if ("pos"+(num1+1)+num2 in posiciones_CPU){
+			}else{
+			rec_contagio_CPU(num1+1,num2,pos);
+			}
+			//contagio_indirecto_derecha(num1,num2+1);
+			//contagio_indirecto_arriba(num1-1,num2);
+			//contagio_indirecto_izquierda(num1,num2-1);
+		}else if(pos == 4)
+		{
+			//alert("contagio izquierda");
+			if ("pos"+num1+(num2-1) in posiciones_CPU){
+			}else{
+			rec_contagio_CPU(num1,num2-1,pos);
+			}
+			//contagio_indirecto_derecha(num1,num2+1);
+			//contagio_indirecto_abajo(num1+1,num2);
+			//contagio_indirecto_arriba(num1-1,num2);
+		}
+
+	}
+	function rec_contagio_CPU(i,j,poscontagiado)
+	{
+		//alert("entrando");
+		//verificar direccion de flecha
+		//
+	
+		//alert("entrando a contagio rec" + i + j + poscontagiado);
+		
+		//verificar posicion valida
+		if(i >= 0 && j >= 0 && i < 8 && j < 8)
+		{
+			var dir = document.getElementsByName("direccion"+i+j)[0].value;
+			//alert("entrando a contagio rec bac"+i+j);
+			document.getElementById("bac"+i+j).src=tilesetPath+"cpu" + dir + ".PNG";
+			document.getElementsByName("jugador"+i+j)[0].value = 2;
+			num1 = parseInt(i);
+			num2 = parseInt(j);
+			//console.log(i,j);
+			//posiciones["pos"+num1+num2] = true;
+			//if("pos"+num1+num2 in posiciones){
+			//}else{
+			//posiciones["pos"+num1+num2] = false;
+			contagio_CPU(num1,num2,dir);
+			//}			
+		}
+	}
+
+	function jugadaIA(){
+		while(!turnojugador){
+			//console.log('wat');
+			//contagio(7,7);
+
+			//logica IA
+			//pos Movimiento dificultad: facil
+			var x = parseInt(7);// = parseInt(1);
+			var y = parseInt(7);// = parseInt(1);
+			//console.log(Math.floor((Math.random()*10)%7)+1);
+			//if('<?php echo $nivel;?>' == 1){
+				//console.log("ez pz");
+				var found = false;
+				x = Math.floor((Math.random()*10)%7)+1;
+				y = Math.floor((Math.random()*10)%7)+1;
+				///console.log(x);
+				//console.log(y);
+				while(!found)
+				{			
+				x = Math.floor((Math.random()*10)%7)+1;
+				y = Math.floor((Math.random()*10)%7)+1;
+				var jugCheck = document.getElementsByName("jugador"+x+""+y)[0].value;
+				//console.log(jugCheck);
+				if(jugCheck == 2){found=true;}
+				}
+			//}
+			//console.log(x+""+y);
+			//
+			var pos = document.getElementsByName("posxy"+x+y)[0].value;
+			var jug = document.getElementsByName("jugador"+x+y)[0].value;
+			var dir = document.getElementsByName("direccion"+x+y)[0].value;
+
+			if(dir == 1)
+			{
+				dir = 2;
+			}else if(dir == 2)
+			{
+				dir = 3;
+			}else if(dir == 3)
+			{
+				dir = 4;
+			}else if(dir == 4)
+			{
+				dir = 1;
+			}
+
+			document.getElementById("bac"+x+y).src=tilesetPath+"cpu" + dir + ".PNG";
+			document.getElementsByName("direccion"+x+y)[0].value = dir;
+			
+			contagio_CPU(x,y,dir);
+
+			//console.log(pos);
+			//console.log(jug);
+			//console.log(dir);
+
+			turnojugador = true;
+			checkGane();
+		}
+	}
+	function checkGane(){
+		var i = 0;
+		var j = 0;
+		var existenJugador = false;
+		var existenCPU = false;
+		for (i=0;i<8;i++){
+			for(j=0;j<8;j++){
+				if(document.getElementsByName("jugador"+i+j)[0].value == 1){
+					existenJugador = true;
+					console.log('jugador1');
+				}
+			}
+		}
+		for (i=0;i<8;i++){
+			for(j=0;j<8;j++){
+				if(document.getElementsByName("jugador"+i+""+j)[0].value == 2){
+					existenCPU = true;
+					console.log('CPU1');
+				}
+			}
+		}
+		console.log(existenJugador);
+		console.log(existenCPU);
+		if (existenJugador && existenCPU){
+		}else if(existenJugador){
+			alert('Ganaste!');
+			window.location = "menuPartidas.php";
+		}else{
+			alert('Perdiste!');
+			window.location = "menuPartidas.php";
 		}
 	}
 
@@ -346,5 +550,6 @@ if($nivel == 1)
 	if('<?php echo $modoPantalla;?>' == "Pantalla Completa"){
 		document.getElementById('fullscreen').hidden = false;
 	}
+	
 </script>
 
