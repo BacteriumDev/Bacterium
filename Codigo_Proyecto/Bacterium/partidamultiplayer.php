@@ -37,6 +37,27 @@ for($i = 0; $i < 65; $i++){
 	$indice++;
 }
 //print_r($tablerojug);
+
+	//seteado de opciones de configuracion
+	//get from DB
+	$sql = "SELECT conf_modo_pantalla,conf_tileset,conf_vol_fx,conf_vol_mus FROM usuarios WHERE idUsuarios = $_SESSION[valid_user]";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
+	$row = mysql_fetch_array($result);
+	//set to form
+	
+	$modoPantalla 	= $row['conf_modo_pantalla'];
+	$tileset 	= $row['conf_tileset'];
+	$volFX 		= $row['conf_vol_fx'];
+	$volMus 	= $row['conf_vol_mus'];
+
+	
+	//echo document.getElementById('audiotag1').volume
+	$tilesetPath;
+	if ($tileset == "Basicas"){
+		$tilesetPath = "images/partida/";
+	}else{
+		$tilesetPath = "images/partida/metalicas1/";
+	}
 ?>
 
 <html>
@@ -47,8 +68,36 @@ for($i = 0; $i < 65; $i++){
 <link href="stylesheets/chatstyle.css" rel="stylesheet" type="text/css">
 <link href="stylesheets/buttonstyle.css" rel="stylesheet" type="text/css">
 <script src="scripts/ajax_dinamic_content.js"></script>
+<script src="scripts/fullscreenManager.js"></script>
+<style type="text/css">
+	#tableromp:-webkit-full-screen {
+		width: 100%;
+		height: 100%;
+	}
+	#tableromp:-moz-full-screen {
+		width: 100%;
+		height: 100%;
+	}
+	.tableromp:--webkit-full-screen{
+		width: 100%;
+
+		height: 50%;
+	}
+</style>
+<audio id="audiotag1" src="audio/action.wav" preload="auto"></audio>
+<audio id="audiotag2" src="audio/music.wav" preload="auto" loop="true" autoplay="autoplay"></audio>
 
 <script>
+	//var usarConf = confirm('cosas');
+	document.getElementById('audiotag1').volume = '<?php echo $volFX/100;?>'; //fiiiix
+	document.getElementById('audiotag2').volume = '<?php echo $volMus/100;?>';
+	if ('<?php echo $volMus;?>' == 0){
+		document.getElementById('audiotag2').pause();
+	}
+	//console.log( '<?php echo $row[conf_vol_fx];?>');
+	var tilesetPath = '<?php echo $tilesetPath;?>';
+	console.log(tilesetPath); // global con el path al tileset usado
+
 	var posiciones = {};
 
 	function obtener()
@@ -187,10 +236,11 @@ for($i = 0; $i < 65; $i++){
 			
 			if(<?php Print($idjugadorturno); ?> == 1)
 			{
-				document.getElementById("bac"+x).src="images/partida/jug" + dir + ".png";
+				document.getElementById("bac"+x).src=tilesetPath+"jug" + dir + ".png";
 				document.getElementsByName("direccion"+x)[0].value = dir;
 				//alert("nueva dir: " + dir);
 				//alert("Turno de la IA");
+				document.getElementById('audiotag1').play(); //agregado por juanca
 				contagio(pos.split("")[0],pos.split("")[1],dir);
 			}else
 			{
@@ -198,6 +248,7 @@ for($i = 0; $i < 65; $i++){
 				document.getElementsByName("direccion"+x)[0].value = dir;
 				//alert("nueva dir: " + dir);
 				//alert("Turno de la IA");
+				document.getElementById('audiotag1').play(); //agregado por juanca
 				contagio(pos.split("")[0],pos.split("")[1],dir);
 			}
 			
@@ -265,7 +316,7 @@ for($i = 0; $i < 65; $i++){
 			if(<?php Print($idjugadorturno); ?> == 1){
 				var dir = document.getElementsByName("direccion"+i+j)[0].value;
 				//alert("entrando a contagio rec bac"+i+j);
-				document.getElementById("bac"+i+j).src="images/partida/jug" + dir + ".png";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".png";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -314,19 +365,19 @@ for($i = 0; $i < 65; $i++){
 							if($tablerojug[$indice] == 1)
 							{
 								
-								echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/jug'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
+								echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'jug'.$tablerodir[$indice].'.png" class="partida" id="bac'.$i.$j.'"/></td>';
 								echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 								echo '<input type="hidden" name="jugador'. $i.$j .'" value="1">';
 								echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$tablerodir[$indice].'">';
 							}else if($tablerojug[$indice] == 2)
 							{
-								echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/cpu'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
+								echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'cpu'.$tablerodir[$indice].'.png" class="partida" id="bac'.$i.$j.'"/></td>';
 								echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 								echo '<input type="hidden" name="jugador'. $i.$j .'" value="2">';
 								echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$tablerodir[$indice].'">';
 							}else
 							{
-								echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/neutral'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
+								echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'neutral'.$tablerodir[$indice].'.png" class="partida" id="bac'.$i.$j.'"/></td>';
 								echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 								echo '<input type="hidden" name="jugador'. $i.$j .'" value="0">';
 								echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$tablerodir[$indice].'">';
@@ -350,7 +401,9 @@ for($i = 0; $i < 65; $i++){
 			<input type="button" id="activar" value="Ver chat" onclick="obtener()"/>
 			<input type="button" id="turno" value="Mi turno" onclick="obtenerTablero()"/>
 		</div>
-
+		<div  id="fullscreen" style="text-align:center" hidden="true">
+		<button style="width:54%" class="boton"  onClick="goFullscreen('tableromp'); return false"> Modo pantalla completa </button>	
+		</div>
 			<div id="footer">
 					<h3> Universidad de Costa Rica - I Semestre 2013<br>Ingenieria de Software 2 </h3>
 			</div>
@@ -358,3 +411,10 @@ for($i = 0; $i < 65; $i++){
 		</div>
 	</body>
 </html>
+
+<script>
+	if('<?php echo $modoPantalla;?>' == "Pantalla Completa"){
+		document.getElementById('fullscreen').hidden = false;
+	}
+	
+</script>

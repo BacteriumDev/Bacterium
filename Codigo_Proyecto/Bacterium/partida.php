@@ -157,7 +157,7 @@ if($nivel == 1)
 				dir = 1;
 			}
 			
-			document.getElementById("bac"+x).src=tilesetPath+"jug" + dir + ".PNG";
+			document.getElementById("bac"+x).src=tilesetPath+"jug" + dir + ".png";
 			document.getElementsByName("direccion"+x)[0].value = dir;
 			//alert("nueva dir: " + dir);
 			//alert("Turno de la IA");
@@ -225,7 +225,7 @@ if($nivel == 1)
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			if(dir == 3)
 			{
-				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".png";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -243,7 +243,7 @@ if($nivel == 1)
 			if(dir == 4)
 			{
 				
-				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".png";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -259,7 +259,7 @@ if($nivel == 1)
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			if(dir == 1)
 			{
-				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".png";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -275,7 +275,7 @@ if($nivel == 1)
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			if(dir == 2)
 			{
-				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
+				document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".png";
 				document.getElementsByName("jugador"+i+j)[0].value = 1;
 				num1 = parseInt(i);
 				num2 = parseInt(j);
@@ -297,7 +297,7 @@ if($nivel == 1)
 		{
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			//alert("entrando a contagio rec bac"+i+j);
-			document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".PNG";
+			document.getElementById("bac"+i+j).src=tilesetPath+"jug" + dir + ".png";
 			document.getElementsByName("jugador"+i+j)[0].value = 1;
 			num1 = parseInt(i);
 			num2 = parseInt(j);
@@ -372,7 +372,7 @@ if($nivel == 1)
 		{
 			var dir = document.getElementsByName("direccion"+i+j)[0].value;
 			//alert("entrando a contagio rec bac"+i+j);
-			document.getElementById("bac"+i+j).src=tilesetPath+"cpu" + dir + ".PNG";
+			document.getElementById("bac"+i+j).src=tilesetPath+"cpu" + dir + ".png";
 			document.getElementsByName("jugador"+i+j)[0].value = 2;
 			num1 = parseInt(i);
 			num2 = parseInt(j);
@@ -432,7 +432,7 @@ if($nivel == 1)
 				dir = 1;
 			}
 
-			document.getElementById("bac"+x+y).src=tilesetPath+"cpu" + dir + ".PNG";
+			document.getElementById("bac"+x+y).src=tilesetPath+"cpu" + dir + ".png";
 			document.getElementsByName("direccion"+x+y)[0].value = dir;
 			
 			contagio_CPU(x,y,dir);
@@ -506,19 +506,19 @@ if($nivel == 1)
 						if($i==0 && $j==0)
 						{
 							
-							echo '<td   onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'jug'.$numrandom.'.PNG" class="partida"  id="bac'.$i.$j.'"/></td>';
+							echo '<td   onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'jug'.$numrandom.'.png" class="partida"  id="bac'.$i.$j.'"/></td>';
 							echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 							echo '<input type="hidden" name="jugador'. $i.$j .'" value="1">';
 							echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$numrandom.'">';
 						}else if($i==7 && $j==7)
 						{
-							echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'cpu'.$numrandom.'.PNG" class="partida" id="bac'.$i.$j.'"/></td>';
+							echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'cpu'.$numrandom.'.png" class="partida" id="bac'.$i.$j.'"/></td>';
 							echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 							echo '<input type="hidden" name="jugador'. $i.$j .'" value="2">';
 							echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$numrandom.'">';
 						}else
 						{
-							echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'neutral'.$numrandom.'.PNG" class="partida" id="bac'.$i.$j.'"/></td>';
+							echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'neutral'.$numrandom.'.png" class="partida" id="bac'.$i.$j.'"/></td>';
 							echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 							echo '<input type="hidden" name="jugador'. $i.$j .'" value="0">';
 							echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$numrandom.'">';

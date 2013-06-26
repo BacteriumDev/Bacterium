@@ -28,24 +28,6 @@
 		$indiceDireccion = $indiceDireccion + 4;
 		$indice++;
 	}
-	$sql = "SELECT conf_modo_pantalla,conf_tileset,conf_vol_fx,conf_vol_mus FROM usuarios WHERE idUsuarios = $_SESSION[valid_user]";
-	$result = mysql_query($sql) or trigger_error(mysql_error());
-	$row = mysql_fetch_array($result);
-	//set to form
-	
-	$modoPantalla 	= $row['conf_modo_pantalla'];
-	$tileset 	= $row['conf_tileset'];
-	$volFX 		= $row['conf_vol_fx'];
-	$volMus 	= $row['conf_vol_mus'];
-
-	
-	//echo document.getElementById('audiotag1').volume
-	$tilesetPath;
-	if ($tileset == "Basicas"){
-		$tilesetPath = "images/partida/";
-	}else{
-		$tilesetPath = "images/partida/metalicas1/";
-	}
 	
 	$indice=0;
 	

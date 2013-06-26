@@ -18,6 +18,10 @@ function goFullscreen(id){
 
 function salirFullscreen(){
 	var element = document.getElementById("partida");
+	if (element == null){
+		element = document.getElementById("tableromp");
+	}
+
 	console.log(element);
 	
 	if (document.exitFullscreen) {
@@ -37,6 +41,7 @@ function salirFullscreen(){
 		
 	}
 }
+
 
 document.addEventListener("fullscreenchange", function () {
     fullscreenState.innerHTML = (document.fullscreen)? "" : "not ";
