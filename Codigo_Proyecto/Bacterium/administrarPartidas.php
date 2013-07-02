@@ -47,7 +47,7 @@
 			<th>Modo de juego</th>
 			<th>Jugadores</th>
 			<th>Estado</th>
-			<th>Acción</th>
+			<th colspan="2">Acción</th>
 		</thead>
 		<tbody>
 			<?php
@@ -71,7 +71,16 @@
 					}
 					echo "<td valign='top'>" . nl2br( $modo ) . "</td>"; 
 					echo "<td valign='top'>" . nl2br( $row['numero_jugadores'] ) . "</td>";
-					echo "<td valign='top'>" . nl2br( $row['estado'] ) . "</td>";
+					$edo = $row['estado'];
+					echo "<td valign='top'>" . nl2br( $edo ) . "</td>";
+					
+					if($edo == "creada")
+					{
+						echo "<td valign='top'><a href=suspenderPartida.php?id={$row['idPartidas']}>Suspender</a></td>"; 
+					}else
+					{
+						echo "<td valign='top'><a href=reanudarPartida.php?id={$row['idPartidas']}>Reanudar</a></td>"; 
+					}
 					echo "<td valign='top'><a href=eliminarPartida.php?id={$row['idPartidas']} class=confirmation>Eliminar</a></td>"; 
 					echo "</tr>"; 
 				}
