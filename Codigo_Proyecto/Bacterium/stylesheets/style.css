@@ -141,6 +141,12 @@ padding:10px;
   margin-bottom: 50px;
 }
 
+.singlebigbox{
+  width:100%;
+  float:left;
+  margin-bottom: 50px;
+}
+
 .box {
   background: #F0FFFF;
   width: 200px;

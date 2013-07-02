@@ -47,7 +47,7 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 				</div>
 			  <div class="bigbox">
 				<div class="box">
-				<a href="#" class="button">Estadisticas</a>
+				<a href="estadisticas.php" class="button">Estadisticas</a>
 				<img src="images/stats_image.png" border="0" align="horizontalcenter">
 				</div>
 			  </div>
