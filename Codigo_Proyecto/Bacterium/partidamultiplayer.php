@@ -100,6 +100,10 @@ for($i = 0; $i < 65; $i++){
 
 	var posiciones = {};
 
+	function getRules(){
+		alert("El objetivo del juego consiste en capturar todas las fichas de su oponente.\nPara esto debera dar click en las fichas de su color correspondiente, rotandolas en el sentido de las manecillas del reloj.\n\nAl rotar las fichas puede capturar fichas de cualquier color, siempre y cuando esten siendo apuntadas o apunten a alguna ficha involucrada en su movimiento.\n\nAdemas, el juego le puede proveer ayuda sobre el mejor movimmiento que puede realizar cuando este jugando en una partida en solitario.\nPara hacer uso de esta ayuda, haga click en el boton de 'Mostrar movimiento optimo' dentro de una partida en solitario.");
+	}
+
 	function obtener()
 	{  
 		callAjax('includes/Retrieve.php?pid=<?php Print($idpartida); ?>', 'canvas', 'retrieving...', 'Error');
@@ -400,6 +404,9 @@ for($i = 0; $i < 65; $i++){
 			<input type="button" id="send" value="Enviar" onclick="Send()"/>
 			<input type="button" id="activar" value="Ver chat" onclick="obtener()"/>
 			<input type="button" id="turno" value="Mi turno" onclick="obtenerTablero()"/>
+		</div>
+		<div  id="ayudaReglas" style="text-align:center" >
+		<button style="width:54%" class="boton"  onClick="getRules(); return false"> Mostrar reglas del juego</button>	
 		</div>
 		<div  id="fullscreen" style="text-align:center" hidden="true">
 		<button style="width:54%" class="boton"  onClick="goFullscreen('tableromp'); return false"> Modo pantalla completa </button>	

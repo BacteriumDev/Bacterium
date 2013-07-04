@@ -99,6 +99,29 @@ if($nivel == 1)
 	if ("pos12" in posiciones){
 		console.log("yup");
 	}*/
+	function getRules(){
+		alert("El objetivo del juego consiste en capturar todas las fichas de su oponente.\nPara esto debera dar click en las fichas de su color correspondiente, rotandolas en el sentido de las manecillas del reloj.\n\nAl rotar las fichas puede capturar fichas de cualquier color, siempre y cuando esten siendo apuntadas o apunten a alguna ficha involucrada en su movimiento.\n\nAdemas, el juego le puede proveer ayuda sobre el mejor movimmiento que puede realizar cuando este jugando en una partida en solitario.\nPara hacer uso de esta ayuda, haga click en el boton de 'Mostrar movimiento optimo' dentro de una partida en solitario.");
+	}
+	function getMovement(){
+		
+		var ficha = document.getElementById("bac00");
+		//document.getElementById("bac00").style.color = "magenta";
+		//alert(ficha);
+		
+		highlightFicha(ficha);
+		window.setTimeout(function(){resetImg("0","0",ficha);},400);
+		//ficha.style.opacity = 0.5;
+	}
+	function highlightFicha(ficha){
+		ficha.src = tilesetPath+"empty2.PNG";
+		ficha.style.backgroundColor = "yellow";
+	}
+
+	function resetImg(x,y,ficha){
+		var dir = document.getElementsByName("direccion"+x+y)[0].value;
+		ficha.src = tilesetPath+"jug"+dir+".png";
+		ficha.style.backgroundColor = "white";
+	}
 
 	function validarJugada(x)
 	{
@@ -532,6 +555,11 @@ if($nivel == 1)
 			?>
 			
 		</table>
+		<div  id="ayudaMovimiento" style="text-align:center" >
+		<button style="width:54%" class="boton"  onClick="getMovement(); return false"> Mostrar movimiento optimo</button>
+		<div  id="ayudaReglas" style="text-align:center" >
+		<button style="width:54%" class="boton"  onClick="getRules(); return false"> Mostrar reglas del juego</button>	
+		</div>
 		<div  id="fullscreen" style="text-align:center" hidden="true">
 		<button style="width:54%" class="boton"  onClick="goFullscreen('partida'); return false"> Modo pantalla completa </button>	
 		</div>
