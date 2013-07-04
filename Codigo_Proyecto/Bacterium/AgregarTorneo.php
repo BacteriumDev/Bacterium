@@ -22,14 +22,14 @@
 	$s_nombre = $_POST['NombreTorneo'];
 
 	//verificacion de que no exista un torneo con este nombre	
-	$sql = "SELECT * FROM `torneos` WHERE `nombre` = '$s_nombre'";
+	$sql = "SELECT * FROM torneos WHERE nombre = '$s_nombre'";
 	$result = mysql_query($sql) or trigger_error(mysql_error());
 	$row = mysql_fetch_array($result);
 
 	
-	if(empty($result)){
+	if(empty($row[0])){
 	}else{
-		header("Location: crearTorneo.php?nombre=invalid");
+		header("Location: crearTorneo.php?nombre=$s_nombre");
 		exit();
 	}
 	
