@@ -17,9 +17,21 @@
 	
 	}//necesario?
 	
+	include 'dbManager.php';
+	//$s_nombre = mysql_real_escape_string($_POST['NombreTorneo']);
+	$s_nombre = $_POST['NombreTorneo'];
+
+	//verificacion de que no exista un torneo con este nombre	
+	$sql = "SELECT * FROM `torneos` WHERE `nombre` = '$s_nombre'";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
+	$row = mysql_fetch_array($result);
+
 	
-	$s_nombre = mysql_real_escape_string($_POST['NombreTorneo']);
-	
+	if(empty($result)){
+	}else{
+		header("Location: crearTorneo.php?nombre=invalid");
+		exit();
+	}
 	
 	$datetimeInicio = "$_POST[InsFechaInicio] $_POST[InsHoraInicio]";
 	$datetimeFin = "$_POST[InsFechaFin] $_POST[InsHoraFin]";
@@ -33,7 +45,7 @@
 	}else{
 	
 		
-		include 'dbManager.php';
+		
 
 		$sql = "INSERT INTO torneos(nombre,tipo_eliminacion,tipo_participacion,max_participantes,estado,idAdmin,inscripcion_fecha_inicio,inscripcion_fecha_final)
 				VALUES('$s_nombre','$_POST[TipoEliminacion]','$_POST[TipoParticipacion]',$_POST[NumMaxParticipantes],'Inscripcion',$_SESSION[valid_user]

@@ -131,4 +131,9 @@
 		print 'alert("Existen campos con valores invalidos, intente de nuevo crear el torneo")'; 
 		print '</script>';
 	}
+	if ( isset($_GET['nombre'])){
+		print '<script type="text/javascript">'; 
+		print 'alert("El nombre del torneo ya ha sido tomado, por favor utilice otro nombre para su torneo.")'; 
+		print '</script>';
+	}
 ?>
