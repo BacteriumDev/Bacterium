@@ -28,8 +28,27 @@
 		$indiceDireccion = $indiceDireccion + 4;
 		$indice++;
 	}
+	$sql = "SELECT conf_modo_pantalla,conf_tileset,conf_vol_fx,conf_vol_mus FROM usuarios WHERE idUsuarios = $_SESSION[valid_user]";
+	$result = mysql_query($sql) or trigger_error(mysql_error());
+	$row = mysql_fetch_array($result);
+	//set to form
+	
+	$modoPantalla 	= $row['conf_modo_pantalla'];
+	$tileset 	= $row['conf_tileset'];
+	$volFX 		= $row['conf_vol_fx'];
+	$volMus 	= $row['conf_vol_mus'];
+
+	
+	//echo document.getElementById('audiotag1').volume
+	$tilesetPath;
+	if ($tileset == "Basicas"){
+		$tilesetPath = "images/partida/";
+	}else{
+		$tilesetPath = "images/partida/metalicas1/";
+	}
 	
 	$indice=0;
+	
 	for($i = 0; $i < 8; ++$i)
 	{
 		echo '<tr>';
@@ -39,19 +58,19 @@
 			if($tablerojug[$indice] == 1)
 			{
 				
-				echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/jug'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
+				echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'jug'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
 				echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 				echo '<input type="hidden" name="jugador'. $i.$j .'" value="1">';
 				echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$tablerodir[$indice].'">';
 			}else if($tablerojug[$indice] == 2)
 			{
-				echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/cpu'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
+				echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'cpu'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
 				echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 				echo '<input type="hidden" name="jugador'. $i.$j .'" value="2">';
 				echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$tablerodir[$indice].'">';
 			}else
 			{
-				echo '<td onclick="validarJugada('. $i.$j .')"><img src="images/partida/neutral'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
+				echo '<td onclick="validarJugada('. $i.$j .')"><img src="'.$tilesetPath.'neutral'.$tablerodir[$indice].'.png" id="bac'.$i.$j.'"/></td>';
 				echo '<input type="hidden" name="posxy'. $i.$j .'" value="'. $i.$j .'">';
 				echo '<input type="hidden" name="jugador'. $i.$j .'" value="0">';
 				echo '<input type="hidden" name="direccion'. $i.$j .'" value="'.$tablerodir[$indice].'">';
