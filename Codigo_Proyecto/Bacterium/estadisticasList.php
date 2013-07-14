@@ -1,16 +1,13 @@
 <?php
 session_start();
 
-$saludo = "";
-
 // Comprueba si el usuario se ha conectado
 if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESSION['authorized'] != 'yes' ){
 	header( "Location: bacterium_accessdenied.php" );
 	exit();
-}else
-{
-	$saludo = "Bienvenido a Bacterium " .$_SESSION['alias'] ."!!"; 
 }
+
+
 ?>
 <html>
 <head>
@@ -26,31 +23,22 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="usuarioEdit.php" class="button"><?php echo $_SESSION['alias'] ?> - Configuraciones</a>
-				<a href="logout.php" class="button">Cerrar sesión</a>
+				<a href="bacterium_hub.php" class="button">Regresar</a>
 			</div>
-			
-			<h2><?php echo $saludo; ?></h2>
-			
+						
 			<div id="box-wrapper">
-			  <div class="bigbox">
+			  <div class="twobigbox">
 				<div class="box"> 
-				<a href="menuPartidas.php" class="button">Partidas</a>
-				<img src="images/mp.png" border="0" align="horizontalcenter">
+				<a href="estadisticas.php" class="button">Logros</a>
+				<img src="images/achievements.jpg" border="0" align="horizontalcenter">
 				</div>
 			  </div>
-			  <div class="bigbox">
+			  <div class="twobigbox">
 				<div class="box">
-				<a href="menuTorneos.php" class="button">Torneos</a>
-				<img src="images/trophy.png" border="0" align="horizontalcenter">
+				<a href="ranking.php" class="button">Ranking</a>
+				<img src="images/rank.png" border="0" align="horizontalcenter">
 				</div>
 				</div>
-			  <div class="bigbox">
-				<div class="box">
-				<a href="estadisticasList.php" class="button">Estadisticas</a>
-				<img src="images/stats_image.png" border="0" align="horizontalcenter">
-				</div>
-			  </div>
 			</div>
 			
 			<div id="footer">

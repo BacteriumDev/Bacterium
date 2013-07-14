@@ -14,6 +14,8 @@ $idjugadorturno++;
 
 include 'dbManager.php';
 
+$actualizarPartidas=mysql_query("UPDATE usuarios SET partidas = partidas+1 WHERE idUsuarios=$_SESSION[valid_user]");
+
 $actualizarJugadores=mysql_query("UPDATE partidas SET numero_jugadores=$idjugadorturno WHERE idPartidas=$idpartida");
 
 $GetTablero=mysql_query("SELECT tablero FROM partidas WHERE idPartidas = '$idpartida'");
@@ -68,6 +70,7 @@ for($i = 0; $i < 65; $i++){
 <link href="stylesheets/chatstyle.css" rel="stylesheet" type="text/css">
 <link href="stylesheets/buttonstyle.css" rel="stylesheet" type="text/css">
 <script src="scripts/ajax_dinamic_content.js"></script>
+<script src="scripts/ajax_dinamic_chat.js"></script>
 <script src="scripts/fullscreenManager.js"></script>
 <style type="text/css">
 	#tableromp:-webkit-full-screen {
@@ -106,14 +109,16 @@ for($i = 0; $i < 65; $i++){
 
 	function obtener()
 	{  
-		callAjax('includes/Retrieve.php?pid=<?php Print($idpartida); ?>', 'canvas', 'retrieving...', 'Error');
-		//setInterval("obtener()", 1 * 1000);			
+		callAjaxChat('includes/Retrieve.php?pid=<?php Print($idpartida); ?>', 'canvas', 'retrieving...', 'Error');
+		//setInterval("obtener()", 1 * 1000);
+		setTimeout(obtener, 2000);		
 	}
 	
 	function obtenerTablero()
 	{
 		callAjax('includes/RetrieveTablero.php?pid=<?php Print($idpartida); ?>', 'tableromp', 'retrieving...', 'Error');
 		//alert("Ahora es su turno");
+		setTimeout(obtenerTablero, 200);
 		turnojugador = true;
 	}
 
@@ -213,8 +218,6 @@ for($i = 0; $i < 65; $i++){
 		var dir = document.getElementsByName("direccion"+x)[0].value;
 		//alert("DATOS A VALIDAR\n" + "Posicion: " + pos + "\n" + "Jugador: " + jug + "\n" + "Direccion: " + dir);		
 		
-
-		
 		if(turnojugador && jug != <?php Print($idjugadorturno); ?>)
 		{
 			alert("Jugada inválida esta ficha no le pertenece");
@@ -223,7 +226,7 @@ for($i = 0; $i < 65; $i++){
 			alert("No puede realizar jugadas cuando no es su turno");
 		}else
 		{
-			turnojugador = false;
+			//turnojugador = false;
 			if(dir == 1)
 			{
 				dir = 2;
@@ -340,9 +343,48 @@ for($i = 0; $i < 65; $i++){
 
 	function iniciar()
 	{
-		//obtenerTablero();
+		obtenerTablero();
+		obteber();
 	}
 
+	
+	window.onbeforeunload = confirmExit;
+	function confirmExit()
+	{
+		return "Si sale de la partida, aparecerá como una derrota en su registro de partidas. Esta seguro de que desea continuar?";
+	}
+	
+	var votos = 0;
+	
+	function suspender()
+	{
+		if(votos == 0)
+		{
+			alert("Se ha registrado un voto de suspension de la partida");
+			var idpar = <?php Print($idpartida); ?>;
+			var xmlhttp;
+		
+			if(window.XMLHttpRequest)
+			{
+				xmlhttp = new XMLHttpRequest();
+			}
+			
+			xmlhttp.onreadystatechange = function()
+			{
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){}
+			}
+			//alert(""+ idpar + n + m);
+			
+			//alert("Send.php?message="+m+"&name="+n+"&partida="+<?php echo $idpartida ?>);
+			xmlhttp.open("GET","includes/Send.php?message=Voto de suspension recibido&name=Sistema&partida="+idpar, true);
+			xmlhttp.send();
+		}else
+		{
+			alert("Solo puede registrar un voto por partida");
+		}
+		votos++;
+		obtener();
+	}
 </script>
 
 </head>
@@ -403,7 +445,7 @@ for($i = 0; $i < 65; $i++){
 			<input type="text" id="message" size="50" maxlength="50" placeholder="Message"/>
 			<input type="button" id="send" value="Enviar" onclick="Send()"/>
 			<input type="button" id="activar" value="Ver chat" onclick="obtener()"/>
-			<input type="button" id="turno" value="Mi turno" onclick="obtenerTablero()"/>
+			<input type="button" id="suspender" value="Voto suspensión" onclick="suspender()"/>
 		</div>
 		<div  id="ayudaReglas" style="text-align:center" >
 		<button style="width:54%" class="boton"  onClick="getRules(); return false"> Mostrar reglas del juego</button>	

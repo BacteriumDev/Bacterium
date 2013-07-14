@@ -8,9 +8,10 @@
 	
 	$pid=mysql_real_escape_string($_GET['partida']);
 	$tablero=$_GET['tablero'];
+	$turno=$_GET['turno'];
 	
 	
 	
-	$SendInformationToDatabase=mysql_query("UPDATE partidas SET tablero='$tablero' WHERE idPartidas=$pid");
+	$SendInformationToDatabase=mysql_query("UPDATE partidas SET tablero='$tablero', turno='$turno' WHERE idPartidas=$pid AND estado='creada'");
 
 ?>

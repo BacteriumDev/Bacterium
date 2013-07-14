@@ -41,7 +41,7 @@ WHERE
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="bacterium_hub.php" class="button">Regresar</a>
+				<a href="estadisticasList.php" class="button">Regresar</a>
 			</div>
 			
 			<h2>Mis logros</h2>

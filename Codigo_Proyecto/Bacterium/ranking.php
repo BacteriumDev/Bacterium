@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-$respuesta = "Datos actualizados correctamente";
+
 
 // Comprueba si el usuario se ha conectado
 if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESSION['authorized'] != 'yes' ){
@@ -8,15 +8,12 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 	exit();
 }
 
-	include 'dbManager.php';
+include 'dbManager.php';
 
-	$idpartida = $_GET['id'];
-	$chatinfo=mysql_query("INSERT INTO chat VALUES('', $idpartida, 'Sistema', 'Partida reanudada por panel de administracion')");
-	$SendInformationToDatabase=mysql_query("UPDATE partidas SET estado='creada', numero_jugadores = 0 WHERE idPartidas = $idpartida");
-	(mysql_affected_rows()) ? $respuesta = "Datos de partida actualizados correctamente" : $respuesta = "No se ha podido efectuar la operacion"; 
+$idUsuario = $_SESSION['valid_user'];
+
 
 ?>
-
 <html>
 <head>
 <title> Ingenieria de software </title>
@@ -31,11 +28,26 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="administrarPartidas.php" class="button">Regresar</a>
+				<a href="estadisticasList.php" class="button">Regresar</a>
 			</div>
 			
+			<h2>Rankings</h2>
+			
+			<div align="center">
+			<form name="rank" method="post" action="rankingShow.php">
+				<table>
+					<tr><td>Seleccione un ranking</td><td><select id="ranking" name="ranking">
+						<option value="torneo">Por Torneos</option> 
+						<option value="partida">Por Partidas</option> 
+					</select>
+					<td><input type="submit" name="submit" value="Ver Ranking"></td></tr>
+				</table>
+			</form>
+			</div>
+			
+			
 			<div id="footer">
-				<h3><?php echo $respuesta; ?></h3>
+				<h3> Universidad de Costa Rica - I Semestre 2013<br>Ingenieria de Software 2 </h3>
 			</div>
 			
 		</div>
