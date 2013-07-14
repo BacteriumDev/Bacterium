@@ -36,6 +36,12 @@ if( !isset($_SESSION['valid_user']) || !isset($_SESSION['authorized']) || $_SESS
 				</div>
 			<div class="bigbox">
 				<div class="box">
+				<a href="menuPartidasEspectador.php" class="button">Modo espectador</a>
+				<img src="images/eye.png" border="0" align="horizontalcenter">
+				</div>
+				</div>
+			<div class="bigbox">
+				<div class="box">
 				<a href="bacterium_hub.php" class="button">Volver al menu principal</a>
 				<img src="images/bacteriaCeleste.png" border="0" align="horizontalcenter">
 				</div>
