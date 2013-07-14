@@ -56,6 +56,7 @@ if($nivel == 1)
 <link href="stylesheets/buttonstyle.css" rel="stylesheet" type="text/css">
 <link href="stylesheets/loginboxstyle.css" rel="stylesheet" type="text/css">
 <script src="scripts/fullscreenManager.js"></script>
+<script src="scripts/AI_movement.js"></script>
 <style type="text/css">
 	#partida:-webkit-full-screen {
 		width: 100%;
@@ -100,28 +101,9 @@ if($nivel == 1)
 		console.log("yup");
 	}*/
 	function getRules(){
-		alert("El objetivo del juego consiste en capturar todas las fichas de su oponente.\nPara esto debera dar click en las fichas de su color correspondiente, rotandolas en el sentido de las manecillas del reloj.\n\nAl rotar las fichas puede capturar fichas de cualquier color, siempre y cuando esten siendo apuntadas o apunten a alguna ficha involucrada en su movimiento.\n\nAdemas, el juego le puede proveer ayuda sobre el mejor movimmiento que puede realizar cuando este jugando en una partida en solitario.\nPara hacer uso de esta ayuda, haga click en el boton de 'Mostrar movimiento optimo' dentro de una partida en solitario.");
+		alert("El objetivo del juego consiste en capturar todas las fichas de su oponente.\nPara esto debera dar click en las fichas de su color correspondiente, rotandolas en el sentido de las manecillas del reloj.\n\nAl rotar las fichas puede capturar fichas de cualquier color, siempre y cuando esten siendo apuntadas o apunten a alguna ficha involucrada en su movimiento.\n\nAdemas, el juego le puede proveer ayuda sobre el mejor movimmiento que puede realizar cuando este jugando en una partida en solitario.\nPara hacer uso de esta ayuda, haga click en el boton de 'Mostrar movimiento optimo' dentro de una partida en solitario.\nLa ficha que el sistema considere como el mejor movimiento va a cambiar a color azul por un momento, mientras que las fichas que van a ser capturadas por este movimiento cambiaran a color amarillo");
 	}
-	function getMovement(){
-		
-		var ficha = document.getElementById("bac00");
-		//document.getElementById("bac00").style.color = "magenta";
-		//alert(ficha);
-		
-		highlightFicha(ficha);
-		window.setTimeout(function(){resetImg("0","0",ficha);},400);
-		//ficha.style.opacity = 0.5;
-	}
-	function highlightFicha(ficha){
-		ficha.src = tilesetPath+"empty2.PNG";
-		ficha.style.backgroundColor = "yellow";
-	}
-
-	function resetImg(x,y,ficha){
-		var dir = document.getElementsByName("direccion"+x+y)[0].value;
-		ficha.src = tilesetPath+"jug"+dir+".png";
-		ficha.style.backgroundColor = "white";
-	}
+	
 
 	function validarJugada(x)
 	{
@@ -418,8 +400,12 @@ if($nivel == 1)
 			//pos Movimiento dificultad: facil
 			var x = parseInt(7);// = parseInt(1);
 			var y = parseInt(7);// = parseInt(1);
+			var ficha;
+			var numProf = 10;
 			//console.log(Math.floor((Math.random()*10)%7)+1);
-			//if('<?php echo $nivel;?>' == 1){
+			if('<?php echo $nivel;?>' == 1){
+				numProf = 3;
+				/* Codigo para movimiento aleatorio
 				//console.log("ez pz");
 				var found = false;
 				x = Math.floor((Math.random()*10)%7)+1;
@@ -434,7 +420,20 @@ if($nivel == 1)
 				//console.log(jugCheck);
 				if(jugCheck == 2){found=true;}
 				}
-			//}
+				*/
+			}else if('<?php echo $nivel;?>' == 2){
+				numProf = 5;
+				
+				
+				//console.log(x+""+y);
+			}
+			jugadorAI = 2; //global usada en AI
+			ficha=movimientoInteligente(2,numProf);
+			//console.log("ficha CPU");				
+			//console.log(ficha);
+			//console.log(ficha.id);
+			x = ficha.id.charAt(3);
+			y = ficha.id.charAt(4);
 			//console.log(x+""+y);
 			//
 			var pos = document.getElementsByName("posxy"+x+y)[0].value;
