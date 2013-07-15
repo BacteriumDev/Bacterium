@@ -166,7 +166,7 @@ for($i = 0; $i < 65; $i++){
 		<div id="wrapper">
 			
 			<div id="loginbar" align="right">
-				<a href="partidas_hub.php?partida=<?php echo $idpartida ?>" class="button">Salir y regresar a partidas</a>
+				<a href="menuPartidasEspectador.php" class="button">Salir y regresar a partidas</a>
 			</div>
 			
 			<h2>Partida en modo espectador</h2>
